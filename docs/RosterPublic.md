@@ -5,6 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**season** | **int** |  | 
+**session** | **str** |  | 
 **game_id** | **int** |  | 
 **api_id** | **int** |  | [optional] 
 **team** | **str** |  | 

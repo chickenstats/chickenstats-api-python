@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **read_games**
-> GameResponse read_games(season=season, sessions=sessions, team=team, limit=limit, offset=offset)
+> GameResponse read_games(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions, team=team)
 
 Read Games
 
@@ -114,15 +114,16 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with chickenstats_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = chickenstats_api.GamesApi(api_client)
+    limit = 10000 # int |  (optional) (default to 10000)
+    offset = 0 # int |  (optional) (default to 0)
+    with_total = True # bool | Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. `total` is then -1 and `has_next` still works. (optional) (default to True)
     season = [56] # List[int] |  (optional)
     sessions = ['sessions_example'] # List[str] |  (optional)
     team = ['team_example'] # List[str] |  (optional)
-    limit = 10000 # int |  (optional) (default to 10000)
-    offset = 0 # int |  (optional) (default to 0)
 
     try:
         # Read Games
-        api_response = api_instance.read_games(season=season, sessions=sessions, team=team, limit=limit, offset=offset)
+        api_response = api_instance.read_games(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions, team=team)
         print("The response of GamesApi->read_games:\n")
         pprint(api_response)
     except Exception as e:
@@ -136,11 +137,12 @@ with chickenstats_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **limit** | **int**|  | [optional] [default to 10000]
+ **offset** | **int**|  | [optional] [default to 0]
+ **with_total** | **bool**| Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. &#x60;total&#x60; is then -1 and &#x60;has_next&#x60; still works. | [optional] [default to True]
  **season** | [**List[int]**](int.md)|  | [optional] 
  **sessions** | [**List[str]**](str.md)|  | [optional] 
  **team** | [**List[str]**](str.md)|  | [optional] 
- **limit** | **int**|  | [optional] [default to 10000]
- **offset** | **int**|  | [optional] [default to 0]
 
 ### Return type
 

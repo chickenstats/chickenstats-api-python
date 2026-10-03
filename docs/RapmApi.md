@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **read_rapm**
-> RapmResponse read_rapm(season=season, sessions=sessions, situation=situation, player=player, api_id=api_id, eh_id=eh_id, team=team, pos=pos, limit=limit, offset=offset)
+> RapmResponse read_rapm(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions, situation=situation, player=player, api_id=api_id, eh_id=eh_id, team=team, pos=pos)
 
 Read Rapm
 
@@ -39,6 +39,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with chickenstats_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = chickenstats_api.RapmApi(api_client)
+    limit = 10000 # int |  (optional) (default to 10000)
+    offset = 0 # int |  (optional) (default to 0)
+    with_total = True # bool | Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. `total` is then -1 and `has_next` still works. (optional) (default to True)
     season = [56] # List[int] |  (optional)
     sessions = ['sessions_example'] # List[str] |  (optional)
     situation = ['situation_example'] # List[str] |  (optional)
@@ -47,12 +50,10 @@ with chickenstats_api.ApiClient(configuration) as api_client:
     eh_id = ['eh_id_example'] # List[str] |  (optional)
     team = ['team_example'] # List[str] |  (optional)
     pos = ['pos_example'] # List[str] |  (optional)
-    limit = 10000 # int |  (optional) (default to 10000)
-    offset = 0 # int |  (optional) (default to 0)
 
     try:
         # Read Rapm
-        api_response = api_instance.read_rapm(season=season, sessions=sessions, situation=situation, player=player, api_id=api_id, eh_id=eh_id, team=team, pos=pos, limit=limit, offset=offset)
+        api_response = api_instance.read_rapm(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions, situation=situation, player=player, api_id=api_id, eh_id=eh_id, team=team, pos=pos)
         print("The response of RapmApi->read_rapm:\n")
         pprint(api_response)
     except Exception as e:
@@ -66,6 +67,9 @@ with chickenstats_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **limit** | **int**|  | [optional] [default to 10000]
+ **offset** | **int**|  | [optional] [default to 0]
+ **with_total** | **bool**| Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. &#x60;total&#x60; is then -1 and &#x60;has_next&#x60; still works. | [optional] [default to True]
  **season** | [**List[int]**](int.md)|  | [optional] 
  **sessions** | [**List[str]**](str.md)|  | [optional] 
  **situation** | [**List[str]**](str.md)|  | [optional] 
@@ -74,8 +78,6 @@ Name | Type | Description  | Notes
  **eh_id** | [**List[str]**](str.md)|  | [optional] 
  **team** | [**List[str]**](str.md)|  | [optional] 
  **pos** | [**List[str]**](str.md)|  | [optional] 
- **limit** | **int**|  | [optional] [default to 10000]
- **offset** | **int**|  | [optional] [default to 0]
 
 ### Return type
 

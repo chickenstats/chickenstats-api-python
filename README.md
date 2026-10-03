@@ -2,8 +2,8 @@
 
 API for downloading NHL data
 
-- API version: 0.1.7
-- Package version: 0.1.7
+- API version: 0.1.8
+- Package version: 0.1.8
 
 ## Requirements
 
@@ -45,18 +45,19 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with chickenstats_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = chickenstats_api.ChangesApi(api_client)
+    limit = 10000 # int |  (optional) (default to 10000)
+    offset = 0 # int |  (optional) (default to 0)
+    with_total = True # bool | Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. `total` is then -1 and `has_next` still works. (optional) (default to True)
     season = [56] # List[int] |  (optional)
     sessions = ['sessions_example'] # List[str] |  (optional)
     game_id = [56] # List[int] |  (optional)
     event_team = ['event_team_example'] # List[str] |  (optional)
     period = [56] # List[int] |  (optional)
     include = ['include_example'] # List[str] |  (optional)
-    limit = 10000 # int |  (optional) (default to 10000)
-    offset = 0 # int |  (optional) (default to 0)
 
     try:
         # Read Changes
-        api_response = api_instance.read_changes(season=season, sessions=sessions, game_id=game_id, event_team=event_team, period=period, include=include, limit=limit, offset=offset)
+        api_response = api_instance.read_changes(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions, game_id=game_id, event_team=event_team, period=period, include=include)
         print("The response of ChangesApi->read_changes:\n")
         pprint(api_response)
     except ApiException as e:
@@ -77,7 +78,6 @@ Class | Method | HTTP request | Description
 *InferenceApi* | [**read_pred_goal**](docs/InferenceApi.md#read_pred_goal) | **GET** /api/v1/inference/pred_goal | Read Pred Goal
 *LinesApi* | [**read_game_lines**](docs/LinesApi.md#read_game_lines) | **GET** /api/v1/chicken_nhl/lines/game | Read Game Lines
 *LinesApi* | [**read_lines_game_ids**](docs/LinesApi.md#read_lines_game_ids) | **GET** /api/v1/chicken_nhl/lines/game_ids | Read Lines Game Ids
-*LinesApi* | [**read_lines_line_ids**](docs/LinesApi.md#read_lines_line_ids) | **GET** /api/v1/chicken_nhl/lines/line_ids | Read Lines Line Ids
 *LinesApi* | [**read_season_lines**](docs/LinesApi.md#read_season_lines) | **GET** /api/v1/chicken_nhl/lines/season | Read Season Lines
 *LiveApi* | [**read_live_games**](docs/LiveApi.md#read_live_games) | **GET** /api/v1/live/games | Read Live Games
 *LiveApi* | [**read_live_pbp**](docs/LiveApi.md#read_live_pbp) | **GET** /api/v1/live/play_by_play | Read Live Pbp
@@ -105,7 +105,6 @@ Class | Method | HTTP request | Description
 *TeamStatsApi* | [**read_game_team_stats**](docs/TeamStatsApi.md#read_game_team_stats) | **GET** /api/v1/chicken_nhl/team_stats/game | Read Game Team Stats
 *TeamStatsApi* | [**read_season_team_stats**](docs/TeamStatsApi.md#read_season_team_stats) | **GET** /api/v1/chicken_nhl/team_stats/season | Read Season Team Stats
 *TeamStatsApi* | [**read_team_stats_game_ids**](docs/TeamStatsApi.md#read_team_stats_game_ids) | **GET** /api/v1/chicken_nhl/team_stats/game_ids | Read Team Stats Game Ids
-*TeamStatsApi* | [**read_team_stats_ids**](docs/TeamStatsApi.md#read_team_stats_ids) | **GET** /api/v1/chicken_nhl/team_stats/team_stats_ids | Read Team Stats Ids
 *TeamsApi* | [**read_teams**](docs/TeamsApi.md#read_teams) | **GET** /api/v1/chicken_nhl/teams | Read Teams
 *UsersApi* | [**delete_user_me**](docs/UsersApi.md#delete_user_me) | **DELETE** /api/v1/users/me | Delete User Me
 *UsersApi* | [**get_programmatic_credentials**](docs/UsersApi.md#get_programmatic_credentials) | **GET** /api/v1/users/me/programmatic-credentials | Get Programmatic Credentials

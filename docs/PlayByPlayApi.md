@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **read_pbp**
-> PbpResponse read_pbp(season=season, sessions=sessions, game_id=game_id, play_id=play_id, event=event, player_1=player_1, goalie=goalie, event_team=event_team, opp_team=opp_team, strength_state=strength_state, include=include, limit=limit, offset=offset)
+> PbpResponse read_pbp(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions, game_id=game_id, play_id=play_id, event=event, player_1=player_1, goalie=goalie, event_team=event_team, opp_team=opp_team, strength_state=strength_state, include=include)
 
 Read Pbp
 
@@ -41,6 +41,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with chickenstats_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = chickenstats_api.PlayByPlayApi(api_client)
+    limit = 10000 # int |  (optional) (default to 10000)
+    offset = 0 # int |  (optional) (default to 0)
+    with_total = True # bool | Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. `total` is then -1 and `has_next` still works. (optional) (default to True)
     season = [56] # List[int] |  (optional)
     sessions = ['sessions_example'] # List[str] |  (optional)
     game_id = [56] # List[int] |  (optional)
@@ -52,12 +55,10 @@ with chickenstats_api.ApiClient(configuration) as api_client:
     opp_team = ['opp_team_example'] # List[str] |  (optional)
     strength_state = ['strength_state_example'] # List[str] |  (optional)
     include = ['include_example'] # List[str] |  (optional)
-    limit = 10000 # int |  (optional) (default to 10000)
-    offset = 0 # int |  (optional) (default to 0)
 
     try:
         # Read Pbp
-        api_response = api_instance.read_pbp(season=season, sessions=sessions, game_id=game_id, play_id=play_id, event=event, player_1=player_1, goalie=goalie, event_team=event_team, opp_team=opp_team, strength_state=strength_state, include=include, limit=limit, offset=offset)
+        api_response = api_instance.read_pbp(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions, game_id=game_id, play_id=play_id, event=event, player_1=player_1, goalie=goalie, event_team=event_team, opp_team=opp_team, strength_state=strength_state, include=include)
         print("The response of PlayByPlayApi->read_pbp:\n")
         pprint(api_response)
     except Exception as e:
@@ -71,6 +72,9 @@ with chickenstats_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **limit** | **int**|  | [optional] [default to 10000]
+ **offset** | **int**|  | [optional] [default to 0]
+ **with_total** | **bool**| Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. &#x60;total&#x60; is then -1 and &#x60;has_next&#x60; still works. | [optional] [default to True]
  **season** | [**List[int]**](int.md)|  | [optional] 
  **sessions** | [**List[str]**](str.md)|  | [optional] 
  **game_id** | [**List[int]**](int.md)|  | [optional] 
@@ -82,8 +86,6 @@ Name | Type | Description  | Notes
  **opp_team** | [**List[str]**](str.md)|  | [optional] 
  **strength_state** | [**List[str]**](str.md)|  | [optional] 
  **include** | [**List[str]**](str.md)|  | [optional] 
- **limit** | **int**|  | [optional] [default to 10000]
- **offset** | **int**|  | [optional] [default to 0]
 
 ### Return type
 
@@ -108,7 +110,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **read_pbp_game_ids**
-> List[int] read_pbp_game_ids(season=season, sessions=sessions, limit=limit, offset=offset)
+> List[int] read_pbp_game_ids(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions)
 
 Read Pbp Game Ids
 
@@ -138,14 +140,15 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with chickenstats_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = chickenstats_api.PlayByPlayApi(api_client)
-    season = [56] # List[int] |  (optional)
-    sessions = ['sessions_example'] # List[str] |  (optional)
     limit = 10000 # int |  (optional) (default to 10000)
     offset = 0 # int |  (optional) (default to 0)
+    with_total = True # bool | Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. `total` is then -1 and `has_next` still works. (optional) (default to True)
+    season = [56] # List[int] |  (optional)
+    sessions = ['sessions_example'] # List[str] |  (optional)
 
     try:
         # Read Pbp Game Ids
-        api_response = api_instance.read_pbp_game_ids(season=season, sessions=sessions, limit=limit, offset=offset)
+        api_response = api_instance.read_pbp_game_ids(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions)
         print("The response of PlayByPlayApi->read_pbp_game_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -159,10 +162,11 @@ with chickenstats_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **season** | [**List[int]**](int.md)|  | [optional] 
- **sessions** | [**List[str]**](str.md)|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10000]
  **offset** | **int**|  | [optional] [default to 0]
+ **with_total** | **bool**| Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. &#x60;total&#x60; is then -1 and &#x60;has_next&#x60; still works. | [optional] [default to True]
+ **season** | [**List[int]**](int.md)|  | [optional] 
+ **sessions** | [**List[str]**](str.md)|  | [optional] 
 
 ### Return type
 
@@ -187,7 +191,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **read_pbp_play_ids**
-> List[int] read_pbp_play_ids(season=season, sessions=sessions, game_id=game_id, limit=limit, offset=offset)
+> List[int] read_pbp_play_ids(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions, game_id=game_id)
 
 Read Pbp Play Ids
 
@@ -217,15 +221,16 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with chickenstats_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = chickenstats_api.PlayByPlayApi(api_client)
+    limit = 10000 # int |  (optional) (default to 10000)
+    offset = 0 # int |  (optional) (default to 0)
+    with_total = True # bool | Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. `total` is then -1 and `has_next` still works. (optional) (default to True)
     season = [56] # List[int] |  (optional)
     sessions = ['sessions_example'] # List[str] |  (optional)
     game_id = [56] # List[int] |  (optional)
-    limit = 10000 # int |  (optional) (default to 10000)
-    offset = 0 # int |  (optional) (default to 0)
 
     try:
         # Read Pbp Play Ids
-        api_response = api_instance.read_pbp_play_ids(season=season, sessions=sessions, game_id=game_id, limit=limit, offset=offset)
+        api_response = api_instance.read_pbp_play_ids(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions, game_id=game_id)
         print("The response of PlayByPlayApi->read_pbp_play_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -239,11 +244,12 @@ with chickenstats_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **limit** | **int**|  | [optional] [default to 10000]
+ **offset** | **int**|  | [optional] [default to 0]
+ **with_total** | **bool**| Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. &#x60;total&#x60; is then -1 and &#x60;has_next&#x60; still works. | [optional] [default to True]
  **season** | [**List[int]**](int.md)|  | [optional] 
  **sessions** | [**List[str]**](str.md)|  | [optional] 
  **game_id** | [**List[int]**](int.md)|  | [optional] 
- **limit** | **int**|  | [optional] [default to 10000]
- **offset** | **int**|  | [optional] [default to 0]
 
 ### Return type
 

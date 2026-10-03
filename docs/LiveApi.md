@@ -78,7 +78,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **read_live_pbp**
-> LivePbpResponse read_live_pbp(game_id=game_id, limit=limit, offset=offset)
+> LivePbpResponse read_live_pbp(game_id=game_id, limit=limit, offset=offset, with_total=with_total)
 
 Read Live Pbp
 
@@ -112,10 +112,11 @@ with chickenstats_api.ApiClient(configuration) as api_client:
     game_id = [56] # List[int] |  (optional)
     limit = 10000 # int |  (optional) (default to 10000)
     offset = 0 # int |  (optional) (default to 0)
+    with_total = True # bool |  (optional) (default to True)
 
     try:
         # Read Live Pbp
-        api_response = api_instance.read_live_pbp(game_id=game_id, limit=limit, offset=offset)
+        api_response = api_instance.read_live_pbp(game_id=game_id, limit=limit, offset=offset, with_total=with_total)
         print("The response of LiveApi->read_live_pbp:\n")
         pprint(api_response)
     except Exception as e:
@@ -132,6 +133,7 @@ Name | Type | Description  | Notes
  **game_id** | [**List[int]**](int.md)|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10000]
  **offset** | **int**|  | [optional] [default to 0]
+ **with_total** | **bool**|  | [optional] [default to True]
 
 ### Return type
 

@@ -83,7 +83,6 @@ Name | Type | Description | Notes
 **strength_state** | **str** |  | [optional] 
 **period** | **int** |  | [optional] 
 **score_state** | **str** |  | [optional] 
-**id** | **str** |  | 
 
 ## Example
 

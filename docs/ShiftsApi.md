@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **read_shifts**
-> ShiftsResponse read_shifts(season=season, sessions=sessions, game_id=game_id, api_id=api_id, team=team, period=period, include=include, limit=limit, offset=offset)
+> ShiftsResponse read_shifts(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions, game_id=game_id, api_id=api_id, team=team, period=period, include=include)
 
 Read Shifts
 
@@ -40,6 +40,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with chickenstats_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = chickenstats_api.ShiftsApi(api_client)
+    limit = 10000 # int |  (optional) (default to 10000)
+    offset = 0 # int |  (optional) (default to 0)
+    with_total = True # bool | Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. `total` is then -1 and `has_next` still works. (optional) (default to True)
     season = [56] # List[int] |  (optional)
     sessions = ['sessions_example'] # List[str] |  (optional)
     game_id = [56] # List[int] |  (optional)
@@ -47,12 +50,10 @@ with chickenstats_api.ApiClient(configuration) as api_client:
     team = ['team_example'] # List[str] |  (optional)
     period = [56] # List[int] |  (optional)
     include = ['include_example'] # List[str] |  (optional)
-    limit = 10000 # int |  (optional) (default to 10000)
-    offset = 0 # int |  (optional) (default to 0)
 
     try:
         # Read Shifts
-        api_response = api_instance.read_shifts(season=season, sessions=sessions, game_id=game_id, api_id=api_id, team=team, period=period, include=include, limit=limit, offset=offset)
+        api_response = api_instance.read_shifts(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions, game_id=game_id, api_id=api_id, team=team, period=period, include=include)
         print("The response of ShiftsApi->read_shifts:\n")
         pprint(api_response)
     except Exception as e:
@@ -66,6 +67,9 @@ with chickenstats_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **limit** | **int**|  | [optional] [default to 10000]
+ **offset** | **int**|  | [optional] [default to 0]
+ **with_total** | **bool**| Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. &#x60;total&#x60; is then -1 and &#x60;has_next&#x60; still works. | [optional] [default to True]
  **season** | [**List[int]**](int.md)|  | [optional] 
  **sessions** | [**List[str]**](str.md)|  | [optional] 
  **game_id** | [**List[int]**](int.md)|  | [optional] 
@@ -73,8 +77,6 @@ Name | Type | Description  | Notes
  **team** | [**List[str]**](str.md)|  | [optional] 
  **period** | [**List[int]**](int.md)|  | [optional] 
  **include** | [**List[str]**](str.md)|  | [optional] 
- **limit** | **int**|  | [optional] [default to 10000]
- **offset** | **int**|  | [optional] [default to 0]
 
 ### Return type
 
@@ -99,7 +101,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **read_shifts_game_ids**
-> List[int] read_shifts_game_ids(season=season, sessions=sessions, limit=limit, offset=offset)
+> List[int] read_shifts_game_ids(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions)
 
 Read Shifts Game Ids
 
@@ -129,14 +131,15 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with chickenstats_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = chickenstats_api.ShiftsApi(api_client)
-    season = [56] # List[int] |  (optional)
-    sessions = ['sessions_example'] # List[str] |  (optional)
     limit = 10000 # int |  (optional) (default to 10000)
     offset = 0 # int |  (optional) (default to 0)
+    with_total = True # bool | Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. `total` is then -1 and `has_next` still works. (optional) (default to True)
+    season = [56] # List[int] |  (optional)
+    sessions = ['sessions_example'] # List[str] |  (optional)
 
     try:
         # Read Shifts Game Ids
-        api_response = api_instance.read_shifts_game_ids(season=season, sessions=sessions, limit=limit, offset=offset)
+        api_response = api_instance.read_shifts_game_ids(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions)
         print("The response of ShiftsApi->read_shifts_game_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -150,10 +153,11 @@ with chickenstats_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **season** | [**List[int]**](int.md)|  | [optional] 
- **sessions** | [**List[str]**](str.md)|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10000]
  **offset** | **int**|  | [optional] [default to 0]
+ **with_total** | **bool**| Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. &#x60;total&#x60; is then -1 and &#x60;has_next&#x60; still works. | [optional] [default to True]
+ **season** | [**List[int]**](int.md)|  | [optional] 
+ **sessions** | [**List[str]**](str.md)|  | [optional] 
 
 ### Return type
 

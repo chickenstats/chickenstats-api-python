@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **read_pred_goal**
-> PredGoalResponse read_pred_goal(game_id=game_id, season=season, sessions=sessions, limit=limit, offset=offset)
+> PredGoalResponse read_pred_goal(game_id=game_id, season=season, sessions=sessions, limit=limit, offset=offset, with_total=with_total)
 
 Read Pred Goal
 
@@ -46,10 +46,11 @@ with chickenstats_api.ApiClient(configuration) as api_client:
     sessions = ['sessions_example'] # List[str] |  (optional)
     limit = 10000 # int |  (optional) (default to 10000)
     offset = 0 # int |  (optional) (default to 0)
+    with_total = True # bool |  (optional) (default to True)
 
     try:
         # Read Pred Goal
-        api_response = api_instance.read_pred_goal(game_id=game_id, season=season, sessions=sessions, limit=limit, offset=offset)
+        api_response = api_instance.read_pred_goal(game_id=game_id, season=season, sessions=sessions, limit=limit, offset=offset, with_total=with_total)
         print("The response of InferenceApi->read_pred_goal:\n")
         pprint(api_response)
     except Exception as e:
@@ -68,6 +69,7 @@ Name | Type | Description  | Notes
  **sessions** | [**List[str]**](str.md)|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10000]
  **offset** | **int**|  | [optional] [default to 0]
+ **with_total** | **bool**|  | [optional] [default to True]
 
 ### Return type
 

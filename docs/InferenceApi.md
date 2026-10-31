@@ -44,7 +44,7 @@ with chickenstats_api.ApiClient(configuration) as api_client:
     game_id = [56] # List[int] |  (optional)
     season = [56] # List[int] |  (optional)
     sessions = ['sessions_example'] # List[str] |  (optional)
-    limit = 10000 # int |  (optional) (default to 10000)
+    limit = 56 # int | Rows per page. When omitted, 10,000 or your tier's maximum, whichever is smaller; the response's `limit` says which. A value over your tier's maximum is refused with a 400. (optional)
     offset = 0 # int |  (optional) (default to 0)
     with_total = True # bool |  (optional) (default to True)
 
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
  **game_id** | [**List[int]**](int.md)|  | [optional] 
  **season** | [**List[int]**](int.md)|  | [optional] 
  **sessions** | [**List[str]**](str.md)|  | [optional] 
- **limit** | **int**|  | [optional] [default to 10000]
+ **limit** | **int**| Rows per page. When omitted, 10,000 or your tier&#39;s maximum, whichever is smaller; the response&#39;s &#x60;limit&#x60; says which. A value over your tier&#39;s maximum is refused with a 400. | [optional] 
  **offset** | **int**|  | [optional] [default to 0]
  **with_total** | **bool**|  | [optional] [default to True]
 

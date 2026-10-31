@@ -6,7 +6,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **full_name** | **str** |  | [optional] 
-**email** | **str** |  | [optional] 
 
 ## Example
 

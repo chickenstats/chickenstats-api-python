@@ -89,6 +89,7 @@ Name | Type | Description | Notes
 **opp_forwards_api_id** | **str** |  | [optional] 
 **opp_defense_api_id** | **str** |  | [optional] 
 **opp_goalie_api_id** | **int** |  | [optional] 
+**game** | [**GamePublic**](GamePublic.md) |  | [optional] 
 
 ## Example
 

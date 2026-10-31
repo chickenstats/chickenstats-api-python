@@ -21,6 +21,9 @@ Delete User Me
 
 Delete own user and disable Firebase account.
 
+Refused while the account has a live Stripe subscription: deleting it left
+the subscription billing and took away the portal it is cancelled from.
+
 ### Example
 
 * OAuth Authentication (OAuth2PasswordBearer):
@@ -163,7 +166,7 @@ This endpoint does not need any parameter.
 
 Read User Me
 
-Get current user.
+Get current user, with the tier they have now.
 
 ### Example
 
@@ -380,8 +383,17 @@ Signup
 
 Public self-registration. Creates a local user, a Firebase user, and a Ghost member.
 
-If the account exists but is inactive (previously deactivated/pruned), reactivates it
-with the new credentials rather than rejecting the request.
+An address that already has a row is refused, active or not (changed
+2026-10-17). Signing up over a deactivated account used to reset its
+password and re-enable it for whoever asked, keeping its flags, its
+service credentials and its Stripe portal. Reactivation is an admin
+action now (PATCH /users/{id} with is_active).
+
+An address with a Firebase account but no row is a deleted account if that
+Firebase account is disabled, which is what deleting leaves behind: it is
+given the new password and enabled again, so the address can be used once
+more. An enabled one belongs to someone, so it is refused rather than
+having its password changed.
 
 ### Example
 
@@ -528,7 +540,7 @@ Name | Type | Description  | Notes
 
 Update User Me
 
-Update own user.
+Update own user. The email address cannot be changed here.
 
 ### Example
 

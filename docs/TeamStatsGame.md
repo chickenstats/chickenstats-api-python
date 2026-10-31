@@ -83,6 +83,7 @@ Name | Type | Description | Notes
 **strength_state** | **str** |  | [optional] 
 **period** | **int** |  | [optional] 
 **score_state** | **str** |  | [optional] 
+**game** | [**GamePublic**](GamePublic.md) |  | [optional] 
 
 ## Example
 

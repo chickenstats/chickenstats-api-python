@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **read_live_games**
-> List[LiveGamesPublic] read_live_games()
+> List[LiveGamesPublic] read_live_games(since=since)
 
 Read Live Games
 
@@ -40,10 +40,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with chickenstats_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = chickenstats_api.LiveApi(api_client)
+    since = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
 
     try:
         # Read Live Games
-        api_response = api_instance.read_live_games()
+        api_response = api_instance.read_live_games(since=since)
         print("The response of LiveApi->read_live_games:\n")
         pprint(api_response)
     except Exception as e:
@@ -54,7 +55,10 @@ with chickenstats_api.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **since** | **datetime**|  | [optional] 
 
 ### Return type
 
@@ -74,11 +78,12 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **read_live_pbp**
-> LivePbpResponse read_live_pbp(game_id=game_id, limit=limit, offset=offset, with_total=with_total)
+> LivePbpResponse read_live_pbp(game_id=game_id, limit=limit, offset=offset, with_total=with_total, since=since)
 
 Read Live Pbp
 
@@ -110,13 +115,14 @@ with chickenstats_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = chickenstats_api.LiveApi(api_client)
     game_id = [56] # List[int] |  (optional)
-    limit = 10000 # int |  (optional) (default to 10000)
+    limit = 56 # int | Rows per page. When omitted, 10,000 or your tier's maximum, whichever is smaller; the response's `limit` says which. A value over your tier's maximum is refused with a 400. (optional)
     offset = 0 # int |  (optional) (default to 0)
-    with_total = True # bool |  (optional) (default to True)
+    with_total = False # bool |  (optional) (default to False)
+    since = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
 
     try:
         # Read Live Pbp
-        api_response = api_instance.read_live_pbp(game_id=game_id, limit=limit, offset=offset, with_total=with_total)
+        api_response = api_instance.read_live_pbp(game_id=game_id, limit=limit, offset=offset, with_total=with_total, since=since)
         print("The response of LiveApi->read_live_pbp:\n")
         pprint(api_response)
     except Exception as e:
@@ -131,9 +137,10 @@ with chickenstats_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **game_id** | [**List[int]**](int.md)|  | [optional] 
- **limit** | **int**|  | [optional] [default to 10000]
+ **limit** | **int**| Rows per page. When omitted, 10,000 or your tier&#39;s maximum, whichever is smaller; the response&#39;s &#x60;limit&#x60; says which. A value over your tier&#39;s maximum is refused with a 400. | [optional] 
  **offset** | **int**|  | [optional] [default to 0]
- **with_total** | **bool**|  | [optional] [default to True]
+ **with_total** | **bool**|  | [optional] [default to False]
+ **since** | **datetime**|  | [optional] 
 
 ### Return type
 

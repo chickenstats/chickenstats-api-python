@@ -2,8 +2,8 @@
 
 API for downloading NHL data
 
-- API version: 0.1.8
-- Package version: 0.1.8
+- API version: 0.1.9
+- Package version: 0.1.9
 
 ## Requirements
 
@@ -45,7 +45,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with chickenstats_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = chickenstats_api.ChangesApi(api_client)
-    limit = 10000 # int |  (optional) (default to 10000)
+    limit = 56 # int | Rows per page. When omitted, 10,000 or your tier's maximum, whichever is smaller; the response's `limit` says which. A value over your tier's maximum is refused with a 400. (optional)
     offset = 0 # int |  (optional) (default to 0)
     with_total = True # bool | Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. `total` is then -1 and `has_next` still works. (optional) (default to True)
     season = [56] # List[int] |  (optional)

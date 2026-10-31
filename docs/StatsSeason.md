@@ -144,6 +144,7 @@ Name | Type | Description | Notes
 **nzs** | **int** |  | [optional] [default to 0]
 **dzs** | **int** |  | [optional] [default to 0]
 **otf** | **int** |  | [optional] [default to 0]
+**player** | [**PlayerPublic**](PlayerPublic.md) |  | [optional] 
 
 ## Example
 

@@ -44,7 +44,8 @@ class TestUserPublic(unittest.TestCase):
                 tier = 'free',
                 id = '',
                 tools_write = True,
-                cf_client_id = ''
+                cf_client_id = '',
+                email_verified = True
             )
         else:
             return UserPublic(

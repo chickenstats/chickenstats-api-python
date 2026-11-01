@@ -4,15 +4,98 @@ All URIs are relative to *https://api.chickenstats.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**confirm_email_change**](UsersApi.md#confirm_email_change) | **POST** /api/v1/users/email/confirm | Confirm Email Change
 [**delete_user_me**](UsersApi.md#delete_user_me) | **DELETE** /api/v1/users/me | Delete User Me
 [**get_programmatic_credentials**](UsersApi.md#get_programmatic_credentials) | **GET** /api/v1/users/me/programmatic-credentials | Get Programmatic Credentials
 [**read_user_me**](UsersApi.md#read_user_me) | **GET** /api/v1/users/me | Read User Me
+[**request_email_change**](UsersApi.md#request_email_change) | **POST** /api/v1/users/me/email | Request Email Change
 [**resend_verification**](UsersApi.md#resend_verification) | **POST** /api/v1/users/me/resend-verification | Resend Verification
 [**rotate_programmatic_credentials**](UsersApi.md#rotate_programmatic_credentials) | **POST** /api/v1/users/me/programmatic-credentials/rotate | Rotate Programmatic Credentials
 [**signup**](UsersApi.md#signup) | **POST** /api/v1/users/signup | Signup
 [**update_password_me**](UsersApi.md#update_password_me) | **PATCH** /api/v1/users/me/password | Update Password Me
 [**update_user_me**](UsersApi.md#update_user_me) | **PATCH** /api/v1/users/me | Update User Me
 
+
+# **confirm_email_change**
+> Message confirm_email_change(email_change_confirm)
+
+Confirm Email Change
+
+Move the account to the address the link was sent to.
+
+No session needed: the link is the proof, and it may be opened on another
+device. It names the address the account had, so it is spent once the
+change is made, and a later change makes an older link useless.
+
+Stripe, then Firebase, then Postgres, and each step is undone if a later
+one fails: an account whose three addresses disagree cannot sign in, buy
+or open its portal. Firebase keeps its uid, so the stripeRole claim comes
+along; the user row keeps its id, so contributor flags, the service token
+and refresh-token ownership do too. Usage rows are re-keyed in the same
+commit as the address.
+
+### Example
+
+
+```python
+import chickenstats_api
+from chickenstats_api.models.email_change_confirm import EmailChangeConfirm
+from chickenstats_api.models.message import Message
+from chickenstats_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.chickenstats.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = chickenstats_api.Configuration(
+    host = "https://api.chickenstats.com"
+)
+
+
+# Enter a context with an instance of the API client
+with chickenstats_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = chickenstats_api.UsersApi(api_client)
+    email_change_confirm = chickenstats_api.EmailChangeConfirm() # EmailChangeConfirm | 
+
+    try:
+        # Confirm Email Change
+        api_response = api_instance.confirm_email_change(email_change_confirm)
+        print("The response of UsersApi->confirm_email_change:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling UsersApi->confirm_email_change: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **email_change_confirm** | [**EmailChangeConfirm**](EmailChangeConfirm.md)|  | 
+
+### Return type
+
+[**Message**](Message.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_user_me**
 > Message delete_user_me()
@@ -166,7 +249,7 @@ This endpoint does not need any parameter.
 
 Read User Me
 
-Get current user, with the tier they have now.
+Get current user, with the tier they have now and whether they are verified.
 
 ### Example
 
@@ -229,6 +312,88 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **request_email_change**
+> Message request_email_change(email_change_request)
+
+Request Email Change
+
+Email a link to a new address; the change happens when it is clicked.
+
+Nothing moves here. The address is the account's identity in Firebase,
+Stripe and the quota, so it changes only once the new one has proved it
+receives mail (API-20, BR-03). A verified account only: an unproven
+address has no claim to hand on.
+
+### Example
+
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import chickenstats_api
+from chickenstats_api.models.email_change_request import EmailChangeRequest
+from chickenstats_api.models.message import Message
+from chickenstats_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.chickenstats.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = chickenstats_api.Configuration(
+    host = "https://api.chickenstats.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with chickenstats_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = chickenstats_api.UsersApi(api_client)
+    email_change_request = chickenstats_api.EmailChangeRequest() # EmailChangeRequest | 
+
+    try:
+        # Request Email Change
+        api_response = api_instance.request_email_change(email_change_request)
+        print("The response of UsersApi->request_email_change:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling UsersApi->request_email_change: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **email_change_request** | [**EmailChangeRequest**](EmailChangeRequest.md)|  | 
+
+### Return type
+
+[**Message**](Message.md)
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

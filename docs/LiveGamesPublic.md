@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **home_score** | **int** |  | 
 **away_score** | **int** |  | 
 **last_updated** | **datetime** |  | 
+**xg_status** | **str** |  | [optional] 
 
 ## Example
 

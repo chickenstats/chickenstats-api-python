@@ -17,6 +17,8 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
+from chickenstats_api.models.email_change_confirm import EmailChangeConfirm
+from chickenstats_api.models.email_change_request import EmailChangeRequest
 from chickenstats_api.models.message import Message
 from chickenstats_api.models.programmatic_credentials import ProgrammaticCredentials
 from chickenstats_api.models.update_password import UpdatePassword
@@ -40,6 +42,195 @@ class UsersApi:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
+
+
+    @validate_call
+    def confirm_email_change(
+        self,
+        email_change_confirm: EmailChangeConfirm,
+        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+    ) -> Message:
+        """Confirm Email Change
+
+        Move the account to the address the link was sent to.  No session needed: the link is the proof, and it may be opened on another device. It names the address the account had, so it is spent once the change is made, and a later change makes an older link useless.  Stripe, then Firebase, then Postgres, and each step is undone if a later one fails: an account whose three addresses disagree cannot sign in, buy or open its portal. Firebase keeps its uid, so the stripeRole claim comes along; the user row keeps its id, so contributor flags, the service token and refresh-token ownership do too. Usage rows are re-keyed in the same commit as the address.
+
+        :param email_change_confirm: (required)
+        :type email_change_confirm: EmailChangeConfirm
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._confirm_email_change_serialize(
+            email_change_confirm=email_change_confirm,
+            _request_auth=None,
+            _content_type=None,
+            _headers=None,
+            _host_index=0
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Message",
+            '422': "HTTPValidationError",
+        }
+
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def confirm_email_change_with_http_info(
+        self,
+        email_change_confirm: EmailChangeConfirm,
+        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+    ) -> ApiResponse[Message]:
+        """Confirm Email Change
+
+        Move the account to the address the link was sent to.  No session needed: the link is the proof, and it may be opened on another device. It names the address the account had, so it is spent once the change is made, and a later change makes an older link useless.  Stripe, then Firebase, then Postgres, and each step is undone if a later one fails: an account whose three addresses disagree cannot sign in, buy or open its portal. Firebase keeps its uid, so the stripeRole claim comes along; the user row keeps its id, so contributor flags, the service token and refresh-token ownership do too. Usage rows are re-keyed in the same commit as the address.
+
+        :param email_change_confirm: (required)
+        :type email_change_confirm: EmailChangeConfirm
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._confirm_email_change_serialize(
+            email_change_confirm=email_change_confirm,
+            _request_auth=None,
+            _content_type=None,
+            _headers=None,
+            _host_index=0
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Message",
+            '422': "HTTPValidationError",
+        }
+
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def confirm_email_change_without_preload_content(
+        self,
+        email_change_confirm: EmailChangeConfirm,
+        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+    ) -> RESTResponseType:
+        """Confirm Email Change
+
+        Move the account to the address the link was sent to.  No session needed: the link is the proof, and it may be opened on another device. It names the address the account had, so it is spent once the change is made, and a later change makes an older link useless.  Stripe, then Firebase, then Postgres, and each step is undone if a later one fails: an account whose three addresses disagree cannot sign in, buy or open its portal. Firebase keeps its uid, so the stripeRole claim comes along; the user row keeps its id, so contributor flags, the service token and refresh-token ownership do too. Usage rows are re-keyed in the same commit as the address.
+
+        :param email_change_confirm: (required)
+        :type email_change_confirm: EmailChangeConfirm
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._confirm_email_change_serialize(
+            email_change_confirm=email_change_confirm,
+            _request_auth=None,
+            _content_type=None,
+            _headers=None,
+            _host_index=0
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Message",
+            '422': "HTTPValidationError",
+        }
+
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _confirm_email_change_serialize(
+        self,
+        email_change_confirm,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if email_change_confirm is not None:
+            _body_params = email_change_confirm
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/api/v1/users/email/confirm',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
 
 
     @validate_call
@@ -367,7 +558,7 @@ class UsersApi:
     ) -> UserPublic:
         """Read User Me
 
-        Get current user, with the tier they have now.
+        Get current user, with the tier they have now and whether they are verified.
 
         :return: Returns the result object.
         """ # noqa: E501
@@ -401,7 +592,7 @@ class UsersApi:
     ) -> ApiResponse[UserPublic]:
         """Read User Me
 
-        Get current user, with the tier they have now.
+        Get current user, with the tier they have now and whether they are verified.
 
         :return: Returns the result object.
         """ # noqa: E501
@@ -435,7 +626,7 @@ class UsersApi:
     ) -> RESTResponseType:
         """Read User Me
 
-        Get current user, with the tier they have now.
+        Get current user, with the tier they have now and whether they are verified.
 
         :return: Returns the result object.
         """ # noqa: E501
@@ -504,6 +695,196 @@ class UsersApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/api/v1/users/me',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def request_email_change(
+        self,
+        email_change_request: EmailChangeRequest,
+        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+    ) -> Message:
+        """Request Email Change
+
+        Email a link to a new address; the change happens when it is clicked.  Nothing moves here. The address is the account's identity in Firebase, Stripe and the quota, so it changes only once the new one has proved it receives mail (API-20, BR-03). A verified account only: an unproven address has no claim to hand on.
+
+        :param email_change_request: (required)
+        :type email_change_request: EmailChangeRequest
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._request_email_change_serialize(
+            email_change_request=email_change_request,
+            _request_auth=None,
+            _content_type=None,
+            _headers=None,
+            _host_index=0
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Message",
+            '422': "HTTPValidationError",
+        }
+
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def request_email_change_with_http_info(
+        self,
+        email_change_request: EmailChangeRequest,
+        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+    ) -> ApiResponse[Message]:
+        """Request Email Change
+
+        Email a link to a new address; the change happens when it is clicked.  Nothing moves here. The address is the account's identity in Firebase, Stripe and the quota, so it changes only once the new one has proved it receives mail (API-20, BR-03). A verified account only: an unproven address has no claim to hand on.
+
+        :param email_change_request: (required)
+        :type email_change_request: EmailChangeRequest
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._request_email_change_serialize(
+            email_change_request=email_change_request,
+            _request_auth=None,
+            _content_type=None,
+            _headers=None,
+            _host_index=0
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Message",
+            '422': "HTTPValidationError",
+        }
+
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def request_email_change_without_preload_content(
+        self,
+        email_change_request: EmailChangeRequest,
+        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+    ) -> RESTResponseType:
+        """Request Email Change
+
+        Email a link to a new address; the change happens when it is clicked.  Nothing moves here. The address is the account's identity in Firebase, Stripe and the quota, so it changes only once the new one has proved it receives mail (API-20, BR-03). A verified account only: an unproven address has no claim to hand on.
+
+        :param email_change_request: (required)
+        :type email_change_request: EmailChangeRequest
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._request_email_change_serialize(
+            email_change_request=email_change_request,
+            _request_auth=None,
+            _content_type=None,
+            _headers=None,
+            _host_index=0
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Message",
+            '422': "HTTPValidationError",
+        }
+
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _request_email_change_serialize(
+        self,
+        email_change_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if email_change_request is not None:
+            _body_params = email_change_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'OAuth2PasswordBearer'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/api/v1/users/me/email',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

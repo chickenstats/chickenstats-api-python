@@ -29,6 +29,8 @@ chickenstats_api/exceptions.py
 chickenstats_api/models/__init__.py
 chickenstats_api/models/changes_public.py
 chickenstats_api/models/changes_response.py
+chickenstats_api/models/email_change_confirm.py
+chickenstats_api/models/email_change_request.py
 chickenstats_api/models/game_public.py
 chickenstats_api/models/game_response.py
 chickenstats_api/models/http_validation_error.py
@@ -88,6 +90,8 @@ chickenstats_api/rest.py
 docs/ChangesApi.md
 docs/ChangesPublic.md
 docs/ChangesResponse.md
+docs/EmailChangeConfirm.md
+docs/EmailChangeRequest.md
 docs/GamePublic.md
 docs/GameResponse.md
 docs/GamesApi.md
@@ -167,6 +171,8 @@ test/__init__.py
 test/test_changes_api.py
 test/test_changes_public.py
 test/test_changes_response.py
+test/test_email_change_confirm.py
+test/test_email_change_request.py
 test/test_game_public.py
 test/test_game_response.py
 test/test_games_api.py

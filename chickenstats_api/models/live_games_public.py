@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -38,7 +38,18 @@ class LiveGamesPublic(BaseModel):
     home_score: StrictInt
     away_score: StrictInt
     last_updated: datetime
-    __properties: ClassVar[List[str]] = ["game_id", "game_date", "home_team", "away_team", "game_state", "period", "time_remaining", "home_score", "away_score", "last_updated"]
+    xg_status: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["game_id", "game_date", "home_team", "away_team", "game_state", "period", "time_remaining", "home_score", "away_score", "last_updated", "xg_status"]
+
+    @field_validator('xg_status')
+    def xg_status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['scored', 'disabled', 'failed']):
+            raise ValueError("must be one of enum values ('scored', 'disabled', 'failed')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -104,6 +115,11 @@ class LiveGamesPublic(BaseModel):
         if self.time_remaining is None and "time_remaining" in self.model_fields_set:
             _dict['time_remaining'] = None
 
+        # set to None if xg_status (nullable) is None
+        # and model_fields_set contains the field
+        if self.xg_status is None and "xg_status" in self.model_fields_set:
+            _dict['xg_status'] = None
+
         return _dict
 
     @classmethod
@@ -125,7 +141,8 @@ class LiveGamesPublic(BaseModel):
             "time_remaining": obj.get("time_remaining"),
             "home_score": obj.get("home_score"),
             "away_score": obj.get("away_score"),
-            "last_updated": obj.get("last_updated")
+            "last_updated": obj.get("last_updated"),
+            "xg_status": obj.get("xg_status")
         })
         return _obj
 

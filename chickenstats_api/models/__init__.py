@@ -17,6 +17,8 @@
 # import models into model package
 from chickenstats_api.models.changes_public import ChangesPublic
 from chickenstats_api.models.changes_response import ChangesResponse
+from chickenstats_api.models.email_change_confirm import EmailChangeConfirm
+from chickenstats_api.models.email_change_request import EmailChangeRequest
 from chickenstats_api.models.game_public import GamePublic
 from chickenstats_api.models.game_response import GameResponse
 from chickenstats_api.models.http_validation_error import HTTPValidationError

@@ -46,6 +46,8 @@ __all__ = [
     "ApiException",
     "ChangesPublic",
     "ChangesResponse",
+    "EmailChangeConfirm",
+    "EmailChangeRequest",
     "GamePublic",
     "GameResponse",
     "HTTPValidationError",
@@ -134,6 +136,8 @@ from chickenstats_api.exceptions import ApiException as ApiException
 # import models into sdk package
 from chickenstats_api.models.changes_public import ChangesPublic as ChangesPublic
 from chickenstats_api.models.changes_response import ChangesResponse as ChangesResponse
+from chickenstats_api.models.email_change_confirm import EmailChangeConfirm as EmailChangeConfirm
+from chickenstats_api.models.email_change_request import EmailChangeRequest as EmailChangeRequest
 from chickenstats_api.models.game_public import GamePublic as GamePublic
 from chickenstats_api.models.game_response import GameResponse as GameResponse
 from chickenstats_api.models.http_validation_error import HTTPValidationError as HTTPValidationError

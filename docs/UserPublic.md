@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **id** | **str** |  | 
 **tools_write** | **bool** |  | [optional] [default to False]
 **cf_client_id** | **str** |  | [optional] 
+**email_verified** | **bool** |  | [optional] 
 
 ## Example
 

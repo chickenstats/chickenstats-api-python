@@ -37,7 +37,8 @@ class UserPublic(BaseModel):
     id: StrictStr
     tools_write: Optional[StrictBool] = False
     cf_client_id: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["email", "is_active", "is_superuser", "is_contributor", "full_name", "tier", "id", "tools_write", "cf_client_id"]
+    email_verified: Optional[StrictBool] = None
+    __properties: ClassVar[List[str]] = ["email", "is_active", "is_superuser", "is_contributor", "full_name", "tier", "id", "tools_write", "cf_client_id", "email_verified"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,6 +89,11 @@ class UserPublic(BaseModel):
         if self.cf_client_id is None and "cf_client_id" in self.model_fields_set:
             _dict['cf_client_id'] = None
 
+        # set to None if email_verified (nullable) is None
+        # and model_fields_set contains the field
+        if self.email_verified is None and "email_verified" in self.model_fields_set:
+            _dict['email_verified'] = None
+
         return _dict
 
     @classmethod
@@ -108,7 +114,8 @@ class UserPublic(BaseModel):
             "tier": obj.get("tier") if obj.get("tier") is not None else 'free',
             "id": obj.get("id"),
             "tools_write": obj.get("tools_write") if obj.get("tools_write") is not None else False,
-            "cf_client_id": obj.get("cf_client_id")
+            "cf_client_id": obj.get("cf_client_id"),
+            "email_verified": obj.get("email_verified")
         })
         return _obj
 

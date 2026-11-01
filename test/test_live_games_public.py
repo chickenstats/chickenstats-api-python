@@ -45,7 +45,8 @@ class TestLiveGamesPublic(unittest.TestCase):
                 time_remaining = '',
                 home_score = 56,
                 away_score = 56,
-                last_updated = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
+                last_updated = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                xg_status = 'scored'
             )
         else:
             return LiveGamesPublic(

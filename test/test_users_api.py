@@ -27,6 +27,13 @@ class TestUsersApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_confirm_email_change(self) -> None:
+        """Test case for confirm_email_change
+
+        Confirm Email Change
+        """
+        pass
+
     def test_delete_user_me(self) -> None:
         """Test case for delete_user_me
 
@@ -45,6 +52,13 @@ class TestUsersApi(unittest.TestCase):
         """Test case for read_user_me
 
         Read User Me
+        """
+        pass
+
+    def test_request_email_change(self) -> None:
+        """Test case for request_email_change
+
+        Request Email Change
         """
         pass
 

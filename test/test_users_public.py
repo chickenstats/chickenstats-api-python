@@ -46,7 +46,8 @@ class TestUsersPublic(unittest.TestCase):
                         tier = 'free', 
                         id = '', 
                         tools_write = True, 
-                        cf_client_id = '', )
+                        cf_client_id = '', 
+                        email_verified = True, )
                     ],
                 count = 56
             )
@@ -62,7 +63,8 @@ class TestUsersPublic(unittest.TestCase):
                         tier = 'free', 
                         id = '', 
                         tools_write = True, 
-                        cf_client_id = '', )
+                        cf_client_id = '', 
+                        email_verified = True, )
                     ],
                 count = 56,
         )

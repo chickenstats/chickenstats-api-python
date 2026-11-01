@@ -29,6 +29,7 @@ from chickenstats_api.models.lines_game_response import LinesGameResponse
 from chickenstats_api.models.lines_public import LinesPublic
 from chickenstats_api.models.lines_season import LinesSeason
 from chickenstats_api.models.lines_season_response import LinesSeasonResponse
+from chickenstats_api.models.link_token import LinkToken
 from chickenstats_api.models.live_games_public import LiveGamesPublic
 from chickenstats_api.models.live_pbp_public import LivePbpPublic
 from chickenstats_api.models.live_pbp_response import LivePbpResponse
@@ -48,6 +49,7 @@ from chickenstats_api.models.roster_public import RosterPublic
 from chickenstats_api.models.roster_response import RosterResponse
 from chickenstats_api.models.shifts_public import ShiftsPublic
 from chickenstats_api.models.shifts_response import ShiftsResponse
+from chickenstats_api.models.sign_in_methods import SignInMethods
 from chickenstats_api.models.standings_public import StandingsPublic
 from chickenstats_api.models.standings_response import StandingsResponse
 from chickenstats_api.models.stats_create import StatsCreate

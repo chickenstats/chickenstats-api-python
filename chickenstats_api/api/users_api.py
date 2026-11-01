@@ -17,10 +17,13 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
+from pydantic import StrictStr
 from chickenstats_api.models.email_change_confirm import EmailChangeConfirm
 from chickenstats_api.models.email_change_request import EmailChangeRequest
+from chickenstats_api.models.link_token import LinkToken
 from chickenstats_api.models.message import Message
 from chickenstats_api.models.programmatic_credentials import ProgrammaticCredentials
+from chickenstats_api.models.sign_in_methods import SignInMethods
 from chickenstats_api.models.update_password import UpdatePassword
 from chickenstats_api.models.user_public import UserPublic
 from chickenstats_api.models.user_register import UserRegister
@@ -218,6 +221,183 @@ class UsersApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/api/v1/users/email/confirm',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def delete_sign_in_method(
+        self,
+        provider: StrictStr,
+        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+    ) -> Message:
+        """Delete Sign In Method
+
+        Remove a way in, unless it is the last one.
+
+        :param provider: (required)
+        :type provider: str
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._delete_sign_in_method_serialize(
+            provider=provider,
+            _request_auth=None,
+            _content_type=None,
+            _headers=None,
+            _host_index=0
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Message",
+            '422': "HTTPValidationError",
+        }
+
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def delete_sign_in_method_with_http_info(
+        self,
+        provider: StrictStr,
+        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+    ) -> ApiResponse[Message]:
+        """Delete Sign In Method
+
+        Remove a way in, unless it is the last one.
+
+        :param provider: (required)
+        :type provider: str
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._delete_sign_in_method_serialize(
+            provider=provider,
+            _request_auth=None,
+            _content_type=None,
+            _headers=None,
+            _host_index=0
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Message",
+            '422': "HTTPValidationError",
+        }
+
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def delete_sign_in_method_without_preload_content(
+        self,
+        provider: StrictStr,
+        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+    ) -> RESTResponseType:
+        """Delete Sign In Method
+
+        Remove a way in, unless it is the last one.
+
+        :param provider: (required)
+        :type provider: str
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._delete_sign_in_method_serialize(
+            provider=provider,
+            _request_auth=None,
+            _content_type=None,
+            _headers=None,
+            _host_index=0
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Message",
+            '422': "HTTPValidationError",
+        }
+
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _delete_sign_in_method_serialize(
+        self,
+        provider,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if provider is not None:
+            _path_params['provider'] = provider
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'OAuth2PasswordBearer'
+        ]
+
+        return self.api_client.param_serialize(
+            method='DELETE',
+            resource_path='/api/v1/users/me/sign-in-methods/{provider}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -536,6 +716,324 @@ class UsersApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/api/v1/users/me/programmatic-credentials',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def read_link_token(
+        self,
+        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+    ) -> LinkToken:
+        """Read Link Token
+
+        A Firebase custom token, for the account page to add a method with.  Verified accounts only: otherwise someone holding an unproven address could attach their own Google or GitHub to it before its owner arrives.
+
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._read_link_token_serialize(
+            _request_auth=None,
+            _content_type=None,
+            _headers=None,
+            _host_index=0
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LinkToken",
+        }
+
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def read_link_token_with_http_info(
+        self,
+        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+    ) -> ApiResponse[LinkToken]:
+        """Read Link Token
+
+        A Firebase custom token, for the account page to add a method with.  Verified accounts only: otherwise someone holding an unproven address could attach their own Google or GitHub to it before its owner arrives.
+
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._read_link_token_serialize(
+            _request_auth=None,
+            _content_type=None,
+            _headers=None,
+            _host_index=0
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LinkToken",
+        }
+
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def read_link_token_without_preload_content(
+        self,
+        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+    ) -> RESTResponseType:
+        """Read Link Token
+
+        A Firebase custom token, for the account page to add a method with.  Verified accounts only: otherwise someone holding an unproven address could attach their own Google or GitHub to it before its owner arrives.
+
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._read_link_token_serialize(
+            _request_auth=None,
+            _content_type=None,
+            _headers=None,
+            _host_index=0
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LinkToken",
+        }
+
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _read_link_token_serialize(
+        self,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'OAuth2PasswordBearer'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/api/v1/users/me/sign-in-methods/link-token',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def read_sign_in_methods(
+        self,
+        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+    ) -> SignInMethods:
+        """Read Sign In Methods
+
+        The ways into this account (API-172).
+
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._read_sign_in_methods_serialize(
+            _request_auth=None,
+            _content_type=None,
+            _headers=None,
+            _host_index=0
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SignInMethods",
+        }
+
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def read_sign_in_methods_with_http_info(
+        self,
+        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+    ) -> ApiResponse[SignInMethods]:
+        """Read Sign In Methods
+
+        The ways into this account (API-172).
+
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._read_sign_in_methods_serialize(
+            _request_auth=None,
+            _content_type=None,
+            _headers=None,
+            _host_index=0
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SignInMethods",
+        }
+
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def read_sign_in_methods_without_preload_content(
+        self,
+        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+    ) -> RESTResponseType:
+        """Read Sign In Methods
+
+        The ways into this account (API-172).
+
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._read_sign_in_methods_serialize(
+            _request_auth=None,
+            _content_type=None,
+            _headers=None,
+            _host_index=0
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SignInMethods",
+        }
+
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _read_sign_in_methods_serialize(
+        self,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'OAuth2PasswordBearer'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/users/me/sign-in-methods',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

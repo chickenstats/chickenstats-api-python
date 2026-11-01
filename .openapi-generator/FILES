@@ -41,6 +41,7 @@ chickenstats_api/models/lines_game_response.py
 chickenstats_api/models/lines_public.py
 chickenstats_api/models/lines_season.py
 chickenstats_api/models/lines_season_response.py
+chickenstats_api/models/link_token.py
 chickenstats_api/models/live_games_public.py
 chickenstats_api/models/live_pbp_public.py
 chickenstats_api/models/live_pbp_response.py
@@ -60,6 +61,7 @@ chickenstats_api/models/roster_public.py
 chickenstats_api/models/roster_response.py
 chickenstats_api/models/shifts_public.py
 chickenstats_api/models/shifts_response.py
+chickenstats_api/models/sign_in_methods.py
 chickenstats_api/models/standings_public.py
 chickenstats_api/models/standings_response.py
 chickenstats_api/models/stats_create.py
@@ -105,6 +107,7 @@ docs/LinesGameResponse.md
 docs/LinesPublic.md
 docs/LinesSeason.md
 docs/LinesSeasonResponse.md
+docs/LinkToken.md
 docs/LiveApi.md
 docs/LiveGamesPublic.md
 docs/LivePbpPublic.md
@@ -131,6 +134,7 @@ docs/RostersApi.md
 docs/ShiftsApi.md
 docs/ShiftsPublic.md
 docs/ShiftsResponse.md
+docs/SignInMethods.md
 docs/StandingsApi.md
 docs/StandingsPublic.md
 docs/StandingsResponse.md
@@ -186,6 +190,7 @@ test/test_lines_game_response.py
 test/test_lines_public.py
 test/test_lines_season.py
 test/test_lines_season_response.py
+test/test_link_token.py
 test/test_live_api.py
 test/test_live_games_public.py
 test/test_live_pbp_public.py
@@ -212,6 +217,7 @@ test/test_rosters_api.py
 test/test_shifts_api.py
 test/test_shifts_public.py
 test/test_shifts_response.py
+test/test_sign_in_methods.py
 test/test_standings_api.py
 test/test_standings_public.py
 test/test_standings_response.py

@@ -5,8 +5,11 @@ All URIs are relative to *https://api.chickenstats.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**confirm_email_change**](UsersApi.md#confirm_email_change) | **POST** /api/v1/users/email/confirm | Confirm Email Change
+[**delete_sign_in_method**](UsersApi.md#delete_sign_in_method) | **DELETE** /api/v1/users/me/sign-in-methods/{provider} | Delete Sign In Method
 [**delete_user_me**](UsersApi.md#delete_user_me) | **DELETE** /api/v1/users/me | Delete User Me
 [**get_programmatic_credentials**](UsersApi.md#get_programmatic_credentials) | **GET** /api/v1/users/me/programmatic-credentials | Get Programmatic Credentials
+[**read_link_token**](UsersApi.md#read_link_token) | **POST** /api/v1/users/me/sign-in-methods/link-token | Read Link Token
+[**read_sign_in_methods**](UsersApi.md#read_sign_in_methods) | **GET** /api/v1/users/me/sign-in-methods | Read Sign In Methods
 [**read_user_me**](UsersApi.md#read_user_me) | **GET** /api/v1/users/me | Read User Me
 [**request_email_change**](UsersApi.md#request_email_change) | **POST** /api/v1/users/me/email | Request Email Change
 [**resend_verification**](UsersApi.md#resend_verification) | **POST** /api/v1/users/me/resend-verification | Resend Verification
@@ -86,6 +89,82 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_sign_in_method**
+> Message delete_sign_in_method(provider)
+
+Delete Sign In Method
+
+Remove a way in, unless it is the last one.
+
+### Example
+
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import chickenstats_api
+from chickenstats_api.models.message import Message
+from chickenstats_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.chickenstats.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = chickenstats_api.Configuration(
+    host = "https://api.chickenstats.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with chickenstats_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = chickenstats_api.UsersApi(api_client)
+    provider = 'provider_example' # str | 
+
+    try:
+        # Delete Sign In Method
+        api_response = api_instance.delete_sign_in_method(provider)
+        print("The response of UsersApi->delete_sign_in_method:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling UsersApi->delete_sign_in_method: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **provider** | **str**|  | 
+
+### Return type
+
+[**Message**](Message.md)
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -226,6 +305,151 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**ProgrammaticCredentials**](ProgrammaticCredentials.md)
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **read_link_token**
+> LinkToken read_link_token()
+
+Read Link Token
+
+A Firebase custom token, for the account page to add a method with.
+
+Verified accounts only: otherwise someone holding an unproven address could
+attach their own Google or GitHub to it before its owner arrives.
+
+### Example
+
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import chickenstats_api
+from chickenstats_api.models.link_token import LinkToken
+from chickenstats_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.chickenstats.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = chickenstats_api.Configuration(
+    host = "https://api.chickenstats.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with chickenstats_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = chickenstats_api.UsersApi(api_client)
+
+    try:
+        # Read Link Token
+        api_response = api_instance.read_link_token()
+        print("The response of UsersApi->read_link_token:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling UsersApi->read_link_token: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**LinkToken**](LinkToken.md)
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **read_sign_in_methods**
+> SignInMethods read_sign_in_methods()
+
+Read Sign In Methods
+
+The ways into this account (API-172).
+
+### Example
+
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import chickenstats_api
+from chickenstats_api.models.sign_in_methods import SignInMethods
+from chickenstats_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.chickenstats.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = chickenstats_api.Configuration(
+    host = "https://api.chickenstats.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with chickenstats_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = chickenstats_api.UsersApi(api_client)
+
+    try:
+        # Read Sign In Methods
+        api_response = api_instance.read_sign_in_methods()
+        print("The response of UsersApi->read_sign_in_methods:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling UsersApi->read_sign_in_methods: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**SignInMethods**](SignInMethods.md)
 
 ### Authorization
 

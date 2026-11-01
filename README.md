@@ -107,8 +107,11 @@ Class | Method | HTTP request | Description
 *TeamStatsApi* | [**read_team_stats_game_ids**](docs/TeamStatsApi.md#read_team_stats_game_ids) | **GET** /api/v1/chicken_nhl/team_stats/game_ids | Read Team Stats Game Ids
 *TeamsApi* | [**read_teams**](docs/TeamsApi.md#read_teams) | **GET** /api/v1/chicken_nhl/teams | Read Teams
 *UsersApi* | [**confirm_email_change**](docs/UsersApi.md#confirm_email_change) | **POST** /api/v1/users/email/confirm | Confirm Email Change
+*UsersApi* | [**delete_sign_in_method**](docs/UsersApi.md#delete_sign_in_method) | **DELETE** /api/v1/users/me/sign-in-methods/{provider} | Delete Sign In Method
 *UsersApi* | [**delete_user_me**](docs/UsersApi.md#delete_user_me) | **DELETE** /api/v1/users/me | Delete User Me
 *UsersApi* | [**get_programmatic_credentials**](docs/UsersApi.md#get_programmatic_credentials) | **GET** /api/v1/users/me/programmatic-credentials | Get Programmatic Credentials
+*UsersApi* | [**read_link_token**](docs/UsersApi.md#read_link_token) | **POST** /api/v1/users/me/sign-in-methods/link-token | Read Link Token
+*UsersApi* | [**read_sign_in_methods**](docs/UsersApi.md#read_sign_in_methods) | **GET** /api/v1/users/me/sign-in-methods | Read Sign In Methods
 *UsersApi* | [**read_user_me**](docs/UsersApi.md#read_user_me) | **GET** /api/v1/users/me | Read User Me
 *UsersApi* | [**request_email_change**](docs/UsersApi.md#request_email_change) | **POST** /api/v1/users/me/email | Request Email Change
 *UsersApi* | [**resend_verification**](docs/UsersApi.md#resend_verification) | **POST** /api/v1/users/me/resend-verification | Resend Verification
@@ -134,6 +137,7 @@ Class | Method | HTTP request | Description
  - [LinesPublic](docs/LinesPublic.md)
  - [LinesSeason](docs/LinesSeason.md)
  - [LinesSeasonResponse](docs/LinesSeasonResponse.md)
+ - [LinkToken](docs/LinkToken.md)
  - [LiveGamesPublic](docs/LiveGamesPublic.md)
  - [LivePbpPublic](docs/LivePbpPublic.md)
  - [LivePbpResponse](docs/LivePbpResponse.md)
@@ -153,6 +157,7 @@ Class | Method | HTTP request | Description
  - [RosterResponse](docs/RosterResponse.md)
  - [ShiftsPublic](docs/ShiftsPublic.md)
  - [ShiftsResponse](docs/ShiftsResponse.md)
+ - [SignInMethods](docs/SignInMethods.md)
  - [StandingsPublic](docs/StandingsPublic.md)
  - [StandingsResponse](docs/StandingsResponse.md)
  - [StatsCreate](docs/StatsCreate.md)

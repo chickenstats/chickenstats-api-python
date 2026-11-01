@@ -34,6 +34,13 @@ class TestUsersApi(unittest.TestCase):
         """
         pass
 
+    def test_delete_sign_in_method(self) -> None:
+        """Test case for delete_sign_in_method
+
+        Delete Sign In Method
+        """
+        pass
+
     def test_delete_user_me(self) -> None:
         """Test case for delete_user_me
 
@@ -45,6 +52,20 @@ class TestUsersApi(unittest.TestCase):
         """Test case for get_programmatic_credentials
 
         Get Programmatic Credentials
+        """
+        pass
+
+    def test_read_link_token(self) -> None:
+        """Test case for read_link_token
+
+        Read Link Token
+        """
+        pass
+
+    def test_read_sign_in_methods(self) -> None:
+        """Test case for read_sign_in_methods
+
+        Read Sign In Methods
         """
         pass
 

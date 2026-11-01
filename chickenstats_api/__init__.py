@@ -58,6 +58,7 @@ __all__ = [
     "LinesPublic",
     "LinesSeason",
     "LinesSeasonResponse",
+    "LinkToken",
     "LiveGamesPublic",
     "LivePbpPublic",
     "LivePbpResponse",
@@ -77,6 +78,7 @@ __all__ = [
     "RosterResponse",
     "ShiftsPublic",
     "ShiftsResponse",
+    "SignInMethods",
     "StandingsPublic",
     "StandingsResponse",
     "StatsCreate",
@@ -148,6 +150,7 @@ from chickenstats_api.models.lines_game_response import LinesGameResponse as Lin
 from chickenstats_api.models.lines_public import LinesPublic as LinesPublic
 from chickenstats_api.models.lines_season import LinesSeason as LinesSeason
 from chickenstats_api.models.lines_season_response import LinesSeasonResponse as LinesSeasonResponse
+from chickenstats_api.models.link_token import LinkToken as LinkToken
 from chickenstats_api.models.live_games_public import LiveGamesPublic as LiveGamesPublic
 from chickenstats_api.models.live_pbp_public import LivePbpPublic as LivePbpPublic
 from chickenstats_api.models.live_pbp_response import LivePbpResponse as LivePbpResponse
@@ -167,6 +170,7 @@ from chickenstats_api.models.roster_public import RosterPublic as RosterPublic
 from chickenstats_api.models.roster_response import RosterResponse as RosterResponse
 from chickenstats_api.models.shifts_public import ShiftsPublic as ShiftsPublic
 from chickenstats_api.models.shifts_response import ShiftsResponse as ShiftsResponse
+from chickenstats_api.models.sign_in_methods import SignInMethods as SignInMethods
 from chickenstats_api.models.standings_public import StandingsPublic as StandingsPublic
 from chickenstats_api.models.standings_response import StandingsResponse as StandingsResponse
 from chickenstats_api.models.stats_create import StatsCreate as StatsCreate

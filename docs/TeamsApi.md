@@ -4,13 +4,13 @@ All URIs are relative to *https://api.chickenstats.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**read_teams**](TeamsApi.md#read_teams) | **GET** /api/v1/chicken_nhl/teams | Read Teams
+[**read_teams**](TeamsApi.md#read_teams) | **GET** /api/v1/chicken_nhl/teams | Teams
 
 
 # **read_teams**
 > TeamResponse read_teams()
 
-Read Teams
+Teams
 
 ### Example
 
@@ -34,7 +34,7 @@ with chickenstats_api.ApiClient(configuration) as api_client:
     api_instance = chickenstats_api.TeamsApi(api_client)
 
     try:
-        # Read Teams
+        # Teams
         api_response = api_instance.read_teams()
         print("The response of TeamsApi->read_teams:\n")
         pprint(api_response)
@@ -66,6 +66,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | No token, or an expired or revoked one: error_description is token_expired (refresh), token_revoked (sign in again), recent_sign_in_required (sign in again for this change), or named_token_expired or named_token_revoked (make a new API token). |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

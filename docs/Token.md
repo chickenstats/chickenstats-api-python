@@ -6,8 +6,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **access_token** | **str** |  | 
-**token_type** | **str** |  | [optional] [default to 'bearer']
+**token_type** | **str** |  | [optional] [default to 'Bearer']
+**expires_in** | **int** |  | 
 **refresh_token** | **str** |  | [optional] 
+**first_sign_in** | **bool** |  | [optional] [default to False]
+**issued_token_type** | **str** |  | [optional] 
 
 ## Example
 

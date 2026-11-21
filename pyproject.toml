@@ -1,9 +1,9 @@
 [project]
 name = "chickenstats_api"
-version = "0.1.9"
+version = "0.2.1"
 description = "chickenstats API"
 authors = [
-  {name = "chicken",email = "chicken@chickenandstats.com"},
+  {name = "chickenstats",email = "chicken@chickenandstats.com"},
 ]
 license = "MIT"
 readme = "README.md"

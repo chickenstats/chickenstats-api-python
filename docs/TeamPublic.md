@@ -7,11 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **code** | **str** |  | 
 **team_name** | **str** |  | [optional] 
-**team_id** | **int** |  | [optional] 
 **division** | **str** |  | [optional] 
-**division_id** | **int** |  | [optional] 
 **conference** | **str** |  | [optional] 
-**conference_id** | **int** |  | [optional] 
 
 ## Example
 

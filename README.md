@@ -1,9 +1,9 @@
 # chickenstats-api
 
-API for downloading NHL data
+ NHL play-by-play, stats, lines and team data, from the same pipeline behind [chickenstats.com](https://chickenstats.com).  ## Quickstart  Get a token on [your account's API page](https://chickenstats.com/account/api). The [chickenstats](https://docs.chickenstats.com) library pages for you and returns a Polars frame (or pandas), from 1.9.2 on:  ```python from chickenstats.api import ChickenStats  cs = ChickenStats(token=\"<token>\")  # or set CHICKENSTATS_API_TOKEN stats = cs.download_season_stats(season=20162017, sessions=\"P\") ```  Or, from 1.9.3, run `chickenstats login` once and call `ChickenStats()` with no token.  Anything else sends the token as a bearer token and pages with `limit` and `offset`:  ```bash curl -H \"Authorization: Bearer $TOKEN\" \\   \"https://api.chickenstats.com/api/v1/chicken_nhl/play_by_play?season=20162017&sessions=P&limit=100\" ```  A script that signs itself in uses OAuth 2.0 at `/api/v1/auth/token` (password, refresh and device grants). Log in on the website and every Try it out here uses your session.  Try it out asks for 100 rows, so the page stays quick. Leave `limit` out of your own calls and you get 10,000, or your tier's maximum if that's smaller.  ## Quotas and errors  Metered responses carry `X-Quota-Limit`, `X-Quota-Used` and `X-Quota-Remaining`, so you can watch your monthly allowance before it runs out.  | Status | What it means | | ------ | ------------- | | 400 | `limit` is over your tier's maximum rows per request | | 401 | The token is missing, invalid or expired | | 403 | Your tier doesn't include this data | | 422 | A parameter failed validation | | 429 | You're over your monthly quota, or the rate limit |  Every error comes back as `{\"detail\": ..., \"request_id\": ...}`, and the id is in the `X-Request-ID` header too. Send it along if you report a problem. 
 
-- API version: 0.1.9
-- Package version: 0.1.9
+- API version: 0.2.1
+- Package version: 0.2.1
 
 ## Requirements
 
@@ -44,24 +44,16 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 # Enter a context with an instance of the API client
 with chickenstats_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = chickenstats_api.ChangesApi(api_client)
-    limit = 56 # int | Rows per page. When omitted, 10,000 or your tier's maximum, whichever is smaller; the response's `limit` says which. A value over your tier's maximum is refused with a 400. (optional)
-    offset = 0 # int |  (optional) (default to 0)
-    with_total = True # bool | Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. `total` is then -1 and `has_next` still works. (optional) (default to True)
-    season = [56] # List[int] |  (optional)
-    sessions = ['sessions_example'] # List[str] |  (optional)
-    game_id = [56] # List[int] |  (optional)
-    event_team = ['event_team_example'] # List[str] |  (optional)
-    period = [56] # List[int] |  (optional)
-    include = ['include_example'] # List[str] |  (optional)
+    api_instance = chickenstats_api.AuthApi(api_client)
+    device_approval = chickenstats_api.DeviceApproval() # DeviceApproval | 
 
     try:
-        # Read Changes
-        api_response = api_instance.read_changes(limit=limit, offset=offset, with_total=with_total, season=season, sessions=sessions, game_id=game_id, event_team=event_team, period=period, include=include)
-        print("The response of ChangesApi->read_changes:\n")
+        # Approve a device sign-in
+        api_response = api_instance.approve_device_sign_in(device_approval)
+        print("The response of AuthApi->approve_device_sign_in:\n")
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling ChangesApi->read_changes: %s\n" % e)
+        print("Exception when calling AuthApi->approve_device_sign_in: %s\n" % e)
 
 ```
 
@@ -71,70 +63,86 @@ All URIs are relative to *https://api.chickenstats.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ChangesApi* | [**read_changes**](docs/ChangesApi.md#read_changes) | **GET** /api/v1/chicken_nhl/changes | Read Changes
-*ChangesApi* | [**read_changes_game_ids**](docs/ChangesApi.md#read_changes_game_ids) | **GET** /api/v1/chicken_nhl/changes/game_ids | Read Changes Game Ids
-*GamesApi* | [**read_game**](docs/GamesApi.md#read_game) | **GET** /api/v1/chicken_nhl/games/{game_id} | Read Game
-*GamesApi* | [**read_games**](docs/GamesApi.md#read_games) | **GET** /api/v1/chicken_nhl/games | Read Games
-*InferenceApi* | [**read_pred_goal**](docs/InferenceApi.md#read_pred_goal) | **GET** /api/v1/inference/pred_goal | Read Pred Goal
-*LinesApi* | [**read_game_lines**](docs/LinesApi.md#read_game_lines) | **GET** /api/v1/chicken_nhl/lines/game | Read Game Lines
-*LinesApi* | [**read_lines_game_ids**](docs/LinesApi.md#read_lines_game_ids) | **GET** /api/v1/chicken_nhl/lines/game_ids | Read Lines Game Ids
-*LinesApi* | [**read_season_lines**](docs/LinesApi.md#read_season_lines) | **GET** /api/v1/chicken_nhl/lines/season | Read Season Lines
-*LiveApi* | [**read_live_games**](docs/LiveApi.md#read_live_games) | **GET** /api/v1/live/games | Read Live Games
-*LiveApi* | [**read_live_pbp**](docs/LiveApi.md#read_live_pbp) | **GET** /api/v1/live/play_by_play | Read Live Pbp
-*LoginApi* | [**login_firebase_token**](docs/LoginApi.md#login_firebase_token) | **POST** /api/v1/login/firebase-token | Login Firebase Token
-*LoginApi* | [**login_refresh**](docs/LoginApi.md#login_refresh) | **POST** /api/v1/login/refresh | Login Refresh
-*LoginApi* | [**login_verify_token**](docs/LoginApi.md#login_verify_token) | **POST** /api/v1/login/verify-token | Login Verify Token
-*LoginApi* | [**recover_password**](docs/LoginApi.md#recover_password) | **POST** /api/v1/password-recovery/{email} | Recover Password
-*LoginApi* | [**recover_password_html_content**](docs/LoginApi.md#recover_password_html_content) | **POST** /api/v1/password-recovery-html-content/{email} | Recover Password Html Content
-*LoginApi* | [**reset_password**](docs/LoginApi.md#reset_password) | **POST** /api/v1/reset-password/ | Reset Password
-*LoginApi* | [**test_token**](docs/LoginApi.md#test_token) | **POST** /api/v1/login/test-token | Test Token
-*PlayByPlayApi* | [**read_pbp**](docs/PlayByPlayApi.md#read_pbp) | **GET** /api/v1/chicken_nhl/play_by_play | Read Pbp
-*PlayByPlayApi* | [**read_pbp_game_ids**](docs/PlayByPlayApi.md#read_pbp_game_ids) | **GET** /api/v1/chicken_nhl/play_by_play/game_ids | Read Pbp Game Ids
-*PlayByPlayApi* | [**read_pbp_play_ids**](docs/PlayByPlayApi.md#read_pbp_play_ids) | **GET** /api/v1/chicken_nhl/play_by_play/play_ids | Read Pbp Play Ids
-*PlayersApi* | [**read_player**](docs/PlayersApi.md#read_player) | **GET** /api/v1/chicken_nhl/players/{api_id} | Read Player
-*PlayersApi* | [**read_players**](docs/PlayersApi.md#read_players) | **GET** /api/v1/chicken_nhl/players | Read Players
-*RapmApi* | [**read_rapm**](docs/RapmApi.md#read_rapm) | **GET** /api/v1/chicken_nhl/rapm | Read Rapm
-*RostersApi* | [**read_roster_game_ids**](docs/RostersApi.md#read_roster_game_ids) | **GET** /api/v1/chicken_nhl/rosters/game_ids | Read Roster Game Ids
-*RostersApi* | [**read_rosters**](docs/RostersApi.md#read_rosters) | **GET** /api/v1/chicken_nhl/rosters | Read Rosters
-*ShiftsApi* | [**read_shifts**](docs/ShiftsApi.md#read_shifts) | **GET** /api/v1/chicken_nhl/shifts | Read Shifts
-*ShiftsApi* | [**read_shifts_game_ids**](docs/ShiftsApi.md#read_shifts_game_ids) | **GET** /api/v1/chicken_nhl/shifts/game_ids | Read Shifts Game Ids
-*StandingsApi* | [**read_standings**](docs/StandingsApi.md#read_standings) | **GET** /api/v1/chicken_nhl/standings | Read Standings
-*StatsApi* | [**read_game_stats**](docs/StatsApi.md#read_game_stats) | **GET** /api/v1/chicken_nhl/stats/game | Read Game Stats
-*StatsApi* | [**read_season_stats**](docs/StatsApi.md#read_season_stats) | **GET** /api/v1/chicken_nhl/stats/season | Read Season Stats
-*StatsApi* | [**read_stats_game_ids**](docs/StatsApi.md#read_stats_game_ids) | **GET** /api/v1/chicken_nhl/stats/game_ids | Read Stats Game Ids
-*TeamStatsApi* | [**read_game_team_stats**](docs/TeamStatsApi.md#read_game_team_stats) | **GET** /api/v1/chicken_nhl/team_stats/game | Read Game Team Stats
-*TeamStatsApi* | [**read_season_team_stats**](docs/TeamStatsApi.md#read_season_team_stats) | **GET** /api/v1/chicken_nhl/team_stats/season | Read Season Team Stats
-*TeamStatsApi* | [**read_team_stats_game_ids**](docs/TeamStatsApi.md#read_team_stats_game_ids) | **GET** /api/v1/chicken_nhl/team_stats/game_ids | Read Team Stats Game Ids
-*TeamsApi* | [**read_teams**](docs/TeamsApi.md#read_teams) | **GET** /api/v1/chicken_nhl/teams | Read Teams
-*UsersApi* | [**confirm_email_change**](docs/UsersApi.md#confirm_email_change) | **POST** /api/v1/users/email/confirm | Confirm Email Change
-*UsersApi* | [**delete_sign_in_method**](docs/UsersApi.md#delete_sign_in_method) | **DELETE** /api/v1/users/me/sign-in-methods/{provider} | Delete Sign In Method
-*UsersApi* | [**delete_user_me**](docs/UsersApi.md#delete_user_me) | **DELETE** /api/v1/users/me | Delete User Me
-*UsersApi* | [**get_programmatic_credentials**](docs/UsersApi.md#get_programmatic_credentials) | **GET** /api/v1/users/me/programmatic-credentials | Get Programmatic Credentials
-*UsersApi* | [**read_link_token**](docs/UsersApi.md#read_link_token) | **POST** /api/v1/users/me/sign-in-methods/link-token | Read Link Token
-*UsersApi* | [**read_sign_in_methods**](docs/UsersApi.md#read_sign_in_methods) | **GET** /api/v1/users/me/sign-in-methods | Read Sign In Methods
-*UsersApi* | [**read_user_me**](docs/UsersApi.md#read_user_me) | **GET** /api/v1/users/me | Read User Me
-*UsersApi* | [**request_email_change**](docs/UsersApi.md#request_email_change) | **POST** /api/v1/users/me/email | Request Email Change
-*UsersApi* | [**resend_verification**](docs/UsersApi.md#resend_verification) | **POST** /api/v1/users/me/resend-verification | Resend Verification
-*UsersApi* | [**rotate_programmatic_credentials**](docs/UsersApi.md#rotate_programmatic_credentials) | **POST** /api/v1/users/me/programmatic-credentials/rotate | Rotate Programmatic Credentials
-*UsersApi* | [**signup**](docs/UsersApi.md#signup) | **POST** /api/v1/users/signup | Signup
-*UsersApi* | [**update_password_me**](docs/UsersApi.md#update_password_me) | **PATCH** /api/v1/users/me/password | Update Password Me
-*UsersApi* | [**update_user_me**](docs/UsersApi.md#update_user_me) | **PATCH** /api/v1/users/me | Update User Me
+*AuthApi* | [**approve_device_sign_in**](docs/AuthApi.md#approve_device_sign_in) | **POST** /api/v1/auth/device/approve | Approve a device sign-in
+*AuthApi* | [**confirm_recovery**](docs/AuthApi.md#confirm_recovery) | **POST** /api/v1/auth/recovery/confirm | Confirm a recovery sign-in
+*AuthApi* | [**end_all_sessions**](docs/AuthApi.md#end_all_sessions) | **DELETE** /api/v1/auth/sessions | Sign out everywhere
+*AuthApi* | [**get_token**](docs/AuthApi.md#get_token) | **POST** /api/v1/auth/token | Get a token
+*AuthApi* | [**make_recovery_codes**](docs/AuthApi.md#make_recovery_codes) | **POST** /api/v1/users/me/recovery-codes | Make recovery codes
+*AuthApi* | [**recover_password**](docs/AuthApi.md#recover_password) | **POST** /api/v1/password-recovery/ | Send a password reset email
+*AuthApi* | [**reset_password**](docs/AuthApi.md#reset_password) | **POST** /api/v1/reset-password/ | Reset a password
+*AuthApi* | [**revoke_token**](docs/AuthApi.md#revoke_token) | **POST** /api/v1/auth/revoke | Sign out one session
+*AuthApi* | [**set_password**](docs/AuthApi.md#set_password) | **POST** /api/v1/set-password/ | Choose a first password
+*AuthApi* | [**start_device_sign_in**](docs/AuthApi.md#start_device_sign_in) | **POST** /api/v1/auth/device | Start a device sign-in
+*AuthApi* | [**use_recovery_code**](docs/AuthApi.md#use_recovery_code) | **POST** /api/v1/auth/recovery | Sign in with a recovery code
+*AuthApi* | [**verify_email**](docs/AuthApi.md#verify_email) | **POST** /api/v1/verify-email | Verify an email address
+*AuthApi* | [**whoami**](docs/AuthApi.md#whoami) | **GET** /api/v1/auth/whoami | Who a token signs in as
+*ChangesApi* | [**read_changes**](docs/ChangesApi.md#read_changes) | **GET** /api/v1/chicken_nhl/changes | Changes
+*ChangesApi* | [**read_changes_game_ids**](docs/ChangesApi.md#read_changes_game_ids) | **GET** /api/v1/chicken_nhl/changes/game_ids | Game IDs with changes
+*GamesApi* | [**read_game**](docs/GamesApi.md#read_game) | **GET** /api/v1/chicken_nhl/games/{game_id} | One game
+*GamesApi* | [**read_games**](docs/GamesApi.md#read_games) | **GET** /api/v1/chicken_nhl/games | Games
+*InferenceApi* | [**read_pred_goal**](docs/InferenceApi.md#read_pred_goal) | **GET** /api/v1/inference/pred_goal | Expected goals (pred_goal)
+*LinesApi* | [**read_game_lines**](docs/LinesApi.md#read_game_lines) | **GET** /api/v1/chicken_nhl/lines/game | Line stats by game
+*LinesApi* | [**read_lines_game_ids**](docs/LinesApi.md#read_lines_game_ids) | **GET** /api/v1/chicken_nhl/lines/game_ids | Game IDs with line stats
+*LinesApi* | [**read_season_lines**](docs/LinesApi.md#read_season_lines) | **GET** /api/v1/chicken_nhl/lines/season | Line stats by season
+*LiveApi* | [**read_live_games**](docs/LiveApi.md#read_live_games) | **GET** /api/v1/live/games | Live games
+*LiveApi* | [**read_live_pbp**](docs/LiveApi.md#read_live_pbp) | **GET** /api/v1/live/play_by_play | Live play-by-play
+*PlayByPlayApi* | [**read_pbp**](docs/PlayByPlayApi.md#read_pbp) | **GET** /api/v1/chicken_nhl/play_by_play | Play-by-play
+*PlayByPlayApi* | [**read_pbp_game_ids**](docs/PlayByPlayApi.md#read_pbp_game_ids) | **GET** /api/v1/chicken_nhl/play_by_play/game_ids | Game IDs with play-by-play
+*PlayByPlayApi* | [**read_pbp_play_ids**](docs/PlayByPlayApi.md#read_pbp_play_ids) | **GET** /api/v1/chicken_nhl/play_by_play/play_ids | Play IDs
+*PlayersApi* | [**read_player**](docs/PlayersApi.md#read_player) | **GET** /api/v1/chicken_nhl/players/{api_id} | One player
+*PlayersApi* | [**read_players**](docs/PlayersApi.md#read_players) | **GET** /api/v1/chicken_nhl/players | Players
+*RapmApi* | [**read_rapm**](docs/RapmApi.md#read_rapm) | **GET** /api/v1/chicken_nhl/rapm | RAPM scores
+*RostersApi* | [**read_roster_game_ids**](docs/RostersApi.md#read_roster_game_ids) | **GET** /api/v1/chicken_nhl/rosters/game_ids | Game IDs with rosters
+*RostersApi* | [**read_rosters**](docs/RostersApi.md#read_rosters) | **GET** /api/v1/chicken_nhl/rosters | Rosters
+*ShiftsApi* | [**read_shifts**](docs/ShiftsApi.md#read_shifts) | **GET** /api/v1/chicken_nhl/shifts | Shifts
+*ShiftsApi* | [**read_shifts_game_ids**](docs/ShiftsApi.md#read_shifts_game_ids) | **GET** /api/v1/chicken_nhl/shifts/game_ids | Game IDs with shifts
+*StandingsApi* | [**read_standings**](docs/StandingsApi.md#read_standings) | **GET** /api/v1/chicken_nhl/standings | Standings
+*StatsApi* | [**read_game_stats**](docs/StatsApi.md#read_game_stats) | **GET** /api/v1/chicken_nhl/stats/game | Skater stats by game
+*StatsApi* | [**read_season_stats**](docs/StatsApi.md#read_season_stats) | **GET** /api/v1/chicken_nhl/stats/season | Skater stats by season
+*StatsApi* | [**read_stats_game_ids**](docs/StatsApi.md#read_stats_game_ids) | **GET** /api/v1/chicken_nhl/stats/game_ids | Game IDs with skater stats
+*TeamStatsApi* | [**read_game_team_stats**](docs/TeamStatsApi.md#read_game_team_stats) | **GET** /api/v1/chicken_nhl/team_stats/game | Team stats by game
+*TeamStatsApi* | [**read_season_team_stats**](docs/TeamStatsApi.md#read_season_team_stats) | **GET** /api/v1/chicken_nhl/team_stats/season | Team stats by season
+*TeamStatsApi* | [**read_team_stats_game_ids**](docs/TeamStatsApi.md#read_team_stats_game_ids) | **GET** /api/v1/chicken_nhl/team_stats/game_ids | Game IDs with team stats
+*TeamsApi* | [**read_teams**](docs/TeamsApi.md#read_teams) | **GET** /api/v1/chicken_nhl/teams | Teams
+*UsersApi* | [**authenticator_changed**](docs/UsersApi.md#authenticator_changed) | **POST** /api/v1/users/me/authenticator/changed | Record an authenticator change
+*UsersApi* | [**confirm_email_change**](docs/UsersApi.md#confirm_email_change) | **POST** /api/v1/users/email/confirm | Confirm an email change
+*UsersApi* | [**create_api_token**](docs/UsersApi.md#create_api_token) | **POST** /api/v1/users/me/tokens | Make an API token
+*UsersApi* | [**delete_sign_in_method**](docs/UsersApi.md#delete_sign_in_method) | **DELETE** /api/v1/users/me/sign-in-methods/{provider} | Remove a sign-in method
+*UsersApi* | [**delete_user_me**](docs/UsersApi.md#delete_user_me) | **DELETE** /api/v1/users/me | Delete your account
+*UsersApi* | [**list_api_tokens**](docs/UsersApi.md#list_api_tokens) | **GET** /api/v1/users/me/tokens | Your API tokens
+*UsersApi* | [**read_link_token**](docs/UsersApi.md#read_link_token) | **POST** /api/v1/users/me/sign-in-methods/link-token | Start linking a sign-in method
+*UsersApi* | [**read_newsletter**](docs/UsersApi.md#read_newsletter) | **GET** /api/v1/users/me/newsletter | Newsletter preference
+*UsersApi* | [**read_sign_in_methods**](docs/UsersApi.md#read_sign_in_methods) | **GET** /api/v1/users/me/sign-in-methods | Your sign-in methods
+*UsersApi* | [**read_usage**](docs/UsersApi.md#read_usage) | **GET** /api/v1/users/me/usage | Your usage this month
+*UsersApi* | [**read_user_me**](docs/UsersApi.md#read_user_me) | **GET** /api/v1/users/me | Your account
+*UsersApi* | [**request_email_change**](docs/UsersApi.md#request_email_change) | **POST** /api/v1/users/me/email | Change your email
+*UsersApi* | [**resend_verification**](docs/UsersApi.md#resend_verification) | **POST** /api/v1/users/me/resend-verification | Resend the verification email
+*UsersApi* | [**revoke_all_api_tokens**](docs/UsersApi.md#revoke_all_api_tokens) | **DELETE** /api/v1/users/me/tokens | Revoke every API token
+*UsersApi* | [**revoke_api_token**](docs/UsersApi.md#revoke_api_token) | **DELETE** /api/v1/users/me/tokens/{token_id} | Revoke an API token
+*UsersApi* | [**signup**](docs/UsersApi.md#signup) | **POST** /api/v1/users/signup | Sign up
+*UsersApi* | [**update_newsletter**](docs/UsersApi.md#update_newsletter) | **PATCH** /api/v1/users/me/newsletter | Change newsletter preference
+*UsersApi* | [**update_password_me**](docs/UsersApi.md#update_password_me) | **PATCH** /api/v1/users/me/password | Change your password
+*UsersApi* | [**update_user_me**](docs/UsersApi.md#update_user_me) | **PATCH** /api/v1/users/me | Update your account
 
 
 ## Documentation For Models
 
+ - [ApiTokenCreate](docs/ApiTokenCreate.md)
+ - [ApiTokenCreated](docs/ApiTokenCreated.md)
+ - [ApiTokenPublic](docs/ApiTokenPublic.md)
  - [ChangesPublic](docs/ChangesPublic.md)
  - [ChangesResponse](docs/ChangesResponse.md)
+ - [DeviceApproval](docs/DeviceApproval.md)
+ - [DeviceAuthorization](docs/DeviceAuthorization.md)
  - [EmailChangeConfirm](docs/EmailChangeConfirm.md)
  - [EmailChangeRequest](docs/EmailChangeRequest.md)
+ - [EmailVerification](docs/EmailVerification.md)
+ - [EmailVerified](docs/EmailVerified.md)
  - [GamePublic](docs/GamePublic.md)
  - [GameResponse](docs/GameResponse.md)
  - [HTTPValidationError](docs/HTTPValidationError.md)
- - [IdToken](docs/IdToken.md)
- - [LinesCreate](docs/LinesCreate.md)
  - [LinesGame](docs/LinesGame.md)
  - [LinesGameResponse](docs/LinesGameResponse.md)
- - [LinesPublic](docs/LinesPublic.md)
  - [LinesSeason](docs/LinesSeason.md)
  - [LinesSeasonResponse](docs/LinesSeasonResponse.md)
  - [LinkToken](docs/LinkToken.md)
@@ -143,16 +151,21 @@ Class | Method | HTTP request | Description
  - [LivePbpResponse](docs/LivePbpResponse.md)
  - [Message](docs/Message.md)
  - [NewPassword](docs/NewPassword.md)
+ - [NewsletterPreference](docs/NewsletterPreference.md)
+ - [Newsletters](docs/Newsletters.md)
+ - [OAuthError](docs/OAuthError.md)
+ - [PasswordRecovery](docs/PasswordRecovery.md)
  - [PbpPublic](docs/PbpPublic.md)
  - [PbpResponse](docs/PbpResponse.md)
  - [PlayerPublic](docs/PlayerPublic.md)
  - [PlayerResponse](docs/PlayerResponse.md)
  - [PredGoalResponse](docs/PredGoalResponse.md)
  - [PredGoalRow](docs/PredGoalRow.md)
- - [ProgrammaticCredentials](docs/ProgrammaticCredentials.md)
  - [RapmResponse](docs/RapmResponse.md)
  - [RapmScores](docs/RapmScores.md)
- - [RefreshTokenRequest](docs/RefreshTokenRequest.md)
+ - [RecoveryCodes](docs/RecoveryCodes.md)
+ - [RecoveryConfirm](docs/RecoveryConfirm.md)
+ - [RecoveryRequest](docs/RecoveryRequest.md)
  - [RosterPublic](docs/RosterPublic.md)
  - [RosterResponse](docs/RosterResponse.md)
  - [ShiftsPublic](docs/ShiftsPublic.md)
@@ -160,29 +173,25 @@ Class | Method | HTTP request | Description
  - [SignInMethods](docs/SignInMethods.md)
  - [StandingsPublic](docs/StandingsPublic.md)
  - [StandingsResponse](docs/StandingsResponse.md)
- - [StatsCreate](docs/StatsCreate.md)
  - [StatsGame](docs/StatsGame.md)
  - [StatsGameResponse](docs/StatsGameResponse.md)
  - [StatsSeason](docs/StatsSeason.md)
  - [StatsSeasonResponse](docs/StatsSeasonResponse.md)
  - [TeamPublic](docs/TeamPublic.md)
  - [TeamResponse](docs/TeamResponse.md)
- - [TeamStatsCreate](docs/TeamStatsCreate.md)
  - [TeamStatsGame](docs/TeamStatsGame.md)
  - [TeamStatsGameResponse](docs/TeamStatsGameResponse.md)
- - [TeamStatsPublic](docs/TeamStatsPublic.md)
  - [TeamStatsSeason](docs/TeamStatsSeason.md)
  - [TeamStatsSeasonResponse](docs/TeamStatsSeasonResponse.md)
  - [Token](docs/Token.md)
  - [UpdatePassword](docs/UpdatePassword.md)
- - [UserCreate](docs/UserCreate.md)
+ - [Usage](docs/Usage.md)
  - [UserPublic](docs/UserPublic.md)
  - [UserRegister](docs/UserRegister.md)
- - [UserUpdate](docs/UserUpdate.md)
  - [UserUpdateMe](docs/UserUpdateMe.md)
- - [UsersPublic](docs/UsersPublic.md)
  - [ValidationError](docs/ValidationError.md)
  - [ValidationErrorLocInner](docs/ValidationErrorLocInner.md)
+ - [WhoAmI](docs/WhoAmI.md)
 
 
 <a id="documentation-for-authorization"></a>

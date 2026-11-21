@@ -4,14 +4,14 @@ All URIs are relative to *https://api.chickenstats.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**read_player**](PlayersApi.md#read_player) | **GET** /api/v1/chicken_nhl/players/{api_id} | Read Player
-[**read_players**](PlayersApi.md#read_players) | **GET** /api/v1/chicken_nhl/players | Read Players
+[**read_player**](PlayersApi.md#read_player) | **GET** /api/v1/chicken_nhl/players/{api_id} | One player
+[**read_players**](PlayersApi.md#read_players) | **GET** /api/v1/chicken_nhl/players | Players
 
 
 # **read_player**
 > PlayerPublic read_player(api_id)
 
-Read Player
+One player
 
 ### Example
 
@@ -43,7 +43,7 @@ with chickenstats_api.ApiClient(configuration) as api_client:
     api_id = 56 # int | 
 
     try:
-        # Read Player
+        # One player
         api_response = api_instance.read_player(api_id)
         print("The response of PlayersApi->read_player:\n")
         pprint(api_response)
@@ -78,6 +78,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | No token, or an expired or revoked one: error_description is token_expired (refresh), token_revoked (sign in again), recent_sign_in_required (sign in again for this change), or named_token_expired or named_token_revoked (make a new API token). |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -85,7 +86,7 @@ Name | Type | Description  | Notes
 # **read_players**
 > PlayerResponse read_players(limit=limit, offset=offset, with_total=with_total, name=name, eh_id=eh_id, api_id=api_id)
 
-Read Players
+Players
 
 ### Example
 
@@ -115,14 +116,14 @@ with chickenstats_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = chickenstats_api.PlayersApi(api_client)
     limit = 56 # int | Rows per page. When omitted, 10,000 or your tier's maximum, whichever is smaller; the response's `limit` says which. A value over your tier's maximum is refused with a 400. (optional)
-    offset = 0 # int |  (optional) (default to 0)
+    offset = 0 # int | Rows to skip. At most 10,000,000; past that, narrow the query with a filter such as season or game_id. (optional) (default to 0)
     with_total = True # bool | Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. `total` is then -1 and `has_next` still works. (optional) (default to True)
     name = ['name_example'] # List[str] |  (optional)
     eh_id = ['eh_id_example'] # List[str] |  (optional)
     api_id = [56] # List[int] |  (optional)
 
     try:
-        # Read Players
+        # Players
         api_response = api_instance.read_players(limit=limit, offset=offset, with_total=with_total, name=name, eh_id=eh_id, api_id=api_id)
         print("The response of PlayersApi->read_players:\n")
         pprint(api_response)
@@ -138,7 +139,7 @@ with chickenstats_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int**| Rows per page. When omitted, 10,000 or your tier&#39;s maximum, whichever is smaller; the response&#39;s &#x60;limit&#x60; says which. A value over your tier&#39;s maximum is refused with a 400. | [optional] 
- **offset** | **int**|  | [optional] [default to 0]
+ **offset** | **int**| Rows to skip. At most 10,000,000; past that, narrow the query with a filter such as season or game_id. | [optional] [default to 0]
  **with_total** | **bool**| Include the exact total row count. Set false on broad queries: the count scans every matching row, which on a season-wide filter costs far more than the page itself. &#x60;total&#x60; is then -1 and &#x60;has_next&#x60; still works. | [optional] [default to True]
  **name** | [**List[str]**](str.md)|  | [optional] 
  **eh_id** | [**List[str]**](str.md)|  | [optional] 
@@ -162,6 +163,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | No token, or an expired or revoked one: error_description is token_expired (refresh), token_revoked (sign in again), recent_sign_in_required (sign in again for this change), or named_token_expired or named_token_revoked (make a new API token). |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

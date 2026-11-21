@@ -6,8 +6,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **email** | **str** |  | 
-**password** | **str** |  | 
 **full_name** | **str** |  | [optional] 
+**newsletter** | **bool** |  | [optional] [default to False]
 
 ## Example
 

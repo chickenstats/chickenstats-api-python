@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **session** | **str** |  | 
 **game_id** | **int** |  | 
 **api_id** | **int** |  | 
+**position** | **str** |  | [optional] 
 **team** | **str** |  | 
 **opp_team** | **str** |  | [optional] 
 **strength_state** | **str** |  | [optional] 
@@ -117,6 +118,10 @@ Name | Type | Description | Notes
 **hdmsa** | **int** |  | [optional] [default to 0]
 **teammate_block** | **int** |  | [optional] [default to 0]
 **teammate_block_adj** | **float** |  | [optional] [default to 0]
+**opp_teammate_block** | **int** |  | [optional] 
+**opp_teammate_block_adj** | **float** |  | [optional] 
+**give** | **int** |  | [optional] 
+**take** | **int** |  | [optional] 
 **hf** | **int** |  | [optional] [default to 0]
 **ht** | **int** |  | [optional] [default to 0]
 **ozf** | **int** |  | [optional] [default to 0]

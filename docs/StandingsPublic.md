@@ -7,19 +7,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **season** | **int** |  | 
 **team** | **str** |  | 
-**division_rank** | **int** |  | [optional] 
-**conference_rank** | **int** |  | [optional] 
-**league_rank** | **int** |  | [optional] 
-**division_rank_home** | **int** |  | [optional] 
-**division_rank_road** | **int** |  | [optional] 
-**division_rank_last10** | **int** |  | [optional] 
-**conference_rank_home** | **int** |  | [optional] 
-**conference_rank_road** | **int** |  | [optional] 
-**conference_rank_last10** | **int** |  | [optional] 
-**league_rank_home** | **int** |  | [optional] 
-**league_rank_road** | **int** |  | [optional] 
-**league_rank_last10** | **int** |  | [optional] 
-**wildcard_rank** | **int** |  | [optional] 
 **points** | **int** |  | [optional] 
 **points_percentage** | **float** |  | [optional] 
 **wins** | **int** |  | [optional] 
@@ -29,9 +16,6 @@ Name | Type | Description | Notes
 **goals_scored** | **int** |  | [optional] 
 **goals_against** | **int** |  | [optional] 
 **streak** | **str** |  | [optional] 
-**pp_rank_division** | **int** |  | [optional] 
-**pp_rank_conference** | **int** |  | [optional] 
-**pp_rank_league** | **int** |  | [optional] 
 **last_updated** | **datetime** |  | [optional] 
 
 ## Example

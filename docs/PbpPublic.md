@@ -139,6 +139,9 @@ Name | Type | Description | Notes
 **pen4** | **int** |  | [optional] [default to 0]
 **pen5** | **int** |  | [optional] [default to 0]
 **pen10** | **int** |  | [optional] [default to 0]
+**cs_version** | **str** |  | [optional] 
+**shootout_attempt** | **int** |  | [optional] 
+**shootout_goal** | **int** |  | [optional] 
 **player** | [**PlayerPublic**](PlayerPublic.md) |  | [optional] 
 **game** | [**GamePublic**](GamePublic.md) |  | [optional] 
 

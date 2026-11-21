@@ -10,7 +10,9 @@ Name | Type | Description | Notes
 **limit** | **int** |  | 
 **offset** | **int** |  | 
 **has_next** | **bool** |  | 
+**notice** | **str** |  | [optional] 
 **data** | [**List[PbpPublic]**](PbpPublic.md) |  | 
+**next_cursor** | **str** |  | [optional] 
 
 ## Example
 

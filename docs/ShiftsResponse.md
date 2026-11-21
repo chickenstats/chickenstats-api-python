@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **limit** | **int** |  | 
 **offset** | **int** |  | 
 **has_next** | **bool** |  | 
+**notice** | **str** |  | [optional] 
 **data** | [**List[ShiftsPublic]**](ShiftsPublic.md) |  | 
 
 ## Example

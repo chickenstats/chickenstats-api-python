@@ -4,14 +4,14 @@ All URIs are relative to *https://api.chickenstats.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**read_live_games**](LiveApi.md#read_live_games) | **GET** /api/v1/live/games | Read Live Games
-[**read_live_pbp**](LiveApi.md#read_live_pbp) | **GET** /api/v1/live/play_by_play | Read Live Pbp
+[**read_live_games**](LiveApi.md#read_live_games) | **GET** /api/v1/live/games | Live games
+[**read_live_pbp**](LiveApi.md#read_live_pbp) | **GET** /api/v1/live/play_by_play | Live play-by-play
 
 
 # **read_live_games**
 > List[LiveGamesPublic] read_live_games(since=since)
 
-Read Live Games
+Live games
 
 ### Example
 
@@ -43,7 +43,7 @@ with chickenstats_api.ApiClient(configuration) as api_client:
     since = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
 
     try:
-        # Read Live Games
+        # Live games
         api_response = api_instance.read_live_games(since=since)
         print("The response of LiveApi->read_live_games:\n")
         pprint(api_response)
@@ -78,6 +78,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | No token, or an expired or revoked one: error_description is token_expired (refresh), token_revoked (sign in again), recent_sign_in_required (sign in again for this change), or named_token_expired or named_token_revoked (make a new API token). |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -85,7 +86,9 @@ Name | Type | Description  | Notes
 # **read_live_pbp**
 > LivePbpResponse read_live_pbp(game_id=game_id, limit=limit, offset=offset, with_total=with_total, since=since)
 
-Read Live Pbp
+Live play-by-play
+
+Play-by-play for live games. Live scoring is off, so xG fields are null.
 
 ### Example
 
@@ -116,12 +119,12 @@ with chickenstats_api.ApiClient(configuration) as api_client:
     api_instance = chickenstats_api.LiveApi(api_client)
     game_id = [56] # List[int] |  (optional)
     limit = 56 # int | Rows per page. When omitted, 10,000 or your tier's maximum, whichever is smaller; the response's `limit` says which. A value over your tier's maximum is refused with a 400. (optional)
-    offset = 0 # int |  (optional) (default to 0)
+    offset = 0 # int | Rows to skip. At most 10,000,000; past that, narrow the query with a filter such as season or game_id. (optional) (default to 0)
     with_total = False # bool |  (optional) (default to False)
     since = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
 
     try:
-        # Read Live Pbp
+        # Live play-by-play
         api_response = api_instance.read_live_pbp(game_id=game_id, limit=limit, offset=offset, with_total=with_total, since=since)
         print("The response of LiveApi->read_live_pbp:\n")
         pprint(api_response)
@@ -138,7 +141,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **game_id** | [**List[int]**](int.md)|  | [optional] 
  **limit** | **int**| Rows per page. When omitted, 10,000 or your tier&#39;s maximum, whichever is smaller; the response&#39;s &#x60;limit&#x60; says which. A value over your tier&#39;s maximum is refused with a 400. | [optional] 
- **offset** | **int**|  | [optional] [default to 0]
+ **offset** | **int**| Rows to skip. At most 10,000,000; past that, narrow the query with a filter such as season or game_id. | [optional] [default to 0]
  **with_total** | **bool**|  | [optional] [default to False]
  **since** | **datetime**|  | [optional] 
 
@@ -160,6 +163,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | No token, or an expired or revoked one: error_description is token_expired (refresh), token_revoked (sign in again), recent_sign_in_required (sign in again for this change), or named_token_expired or named_token_revoked (make a new API token). |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

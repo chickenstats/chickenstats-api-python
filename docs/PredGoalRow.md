@@ -9,6 +9,10 @@ Name | Type | Description | Notes
 **event_idx** | **int** |  | 
 **season** | **int** |  | 
 **session** | **str** |  | 
+**event** | **str** |  | 
+**period** | **int** |  | 
+**period_seconds** | **int** |  | 
+**player_1_api_id** | **int** |  | 
 **base_xg** | **float** |  | 
 **context_xg** | **float** |  | 
 **pred_goal** | **float** |  | 

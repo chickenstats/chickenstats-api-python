@@ -4,13 +4,13 @@ All URIs are relative to *https://api.chickenstats.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**read_standings**](StandingsApi.md#read_standings) | **GET** /api/v1/chicken_nhl/standings | Read Standings
+[**read_standings**](StandingsApi.md#read_standings) | **GET** /api/v1/chicken_nhl/standings | Standings
 
 
 # **read_standings**
 > StandingsResponse read_standings(season=season, team=team)
 
-Read Standings
+Standings
 
 ### Example
 
@@ -36,7 +36,7 @@ with chickenstats_api.ApiClient(configuration) as api_client:
     team = ['team_example'] # List[str] |  (optional)
 
     try:
-        # Read Standings
+        # Standings
         api_response = api_instance.read_standings(season=season, team=team)
         print("The response of StandingsApi->read_standings:\n")
         pprint(api_response)
@@ -72,6 +72,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | No token, or an expired or revoked one: error_description is token_expired (refresh), token_revoked (sign in again), recent_sign_in_required (sign in again for this change), or named_token_expired or named_token_revoked (make a new API token). |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

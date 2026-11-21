@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **pos** | **str** |  | [optional] 
 **pos2** | **str** |  | [optional] 
 **toi_minutes** | **float** |  | [optional] 
+**def_toi_minutes** | **float** |  | [optional] 
 **rapm_off** | **float** |  | [optional] 
 **rapm_def** | **float** |  | [optional] 
 **off_coeff_corsi** | **float** |  | [optional] 

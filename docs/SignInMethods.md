@@ -6,6 +6,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **methods** | **List[str]** |  | 
+**authenticator** | **bool** |  | [optional] [default to False]
+**recovery_codes** | **int** |  | [optional] [default to 0]
 
 ## Example
 

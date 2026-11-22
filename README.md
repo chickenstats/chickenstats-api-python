@@ -2,8 +2,8 @@
 
  NHL play-by-play, stats, lines and team data, from the same pipeline behind [chickenstats.com](https://chickenstats.com).  ## Quickstart  Get a token on [your account's API page](https://chickenstats.com/account/api). The [chickenstats](https://docs.chickenstats.com) library pages for you and returns a Polars frame (or pandas), from 1.9.2 on:  ```python from chickenstats.api import ChickenStats  cs = ChickenStats(token=\"<token>\")  # or set CHICKENSTATS_API_TOKEN stats = cs.download_season_stats(season=20162017, sessions=\"P\") ```  Or, from 1.9.3, run `chickenstats login` once and call `ChickenStats()` with no token.  Anything else sends the token as a bearer token and pages with `limit` and `offset`:  ```bash curl -H \"Authorization: Bearer $TOKEN\" \\   \"https://api.chickenstats.com/api/v1/chicken_nhl/play_by_play?season=20162017&sessions=P&limit=100\" ```  A script that signs itself in uses OAuth 2.0 at `/api/v1/auth/token` (password, refresh and device grants). Log in on the website and every Try it out here uses your session.  Try it out asks for 100 rows, so the page stays quick. Leave `limit` out of your own calls and you get 10,000, or your tier's maximum if that's smaller.  ## Quotas and errors  Metered responses carry `X-Quota-Limit`, `X-Quota-Used` and `X-Quota-Remaining`, so you can watch your monthly allowance before it runs out.  | Status | What it means | | ------ | ------------- | | 400 | `limit` is over your tier's maximum rows per request | | 401 | The token is missing, invalid or expired | | 403 | Your tier doesn't include this data | | 422 | A parameter failed validation | | 429 | You're over your monthly quota, or the rate limit |  Every error comes back as `{\"detail\": ..., \"request_id\": ...}`, and the id is in the `X-Request-ID` header too. Send it along if you report a problem. 
 
-- API version: 0.3.0
-- Package version: 0.3.0
+- API version: 0.3.1
+- Package version: 0.3.1
 
 ## Requirements
 

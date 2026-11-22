@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **error** | **str** |  | [optional] 
 **error_description** | **str** |  | [optional] 
 **detail** | **str** |  | [optional] 
-**mfa_token** | **str** |  | [optional] 
 
 ## Example
 

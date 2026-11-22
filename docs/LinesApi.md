@@ -14,6 +14,10 @@ Method | HTTP request | Description
 
 Line stats by game
 
+Stats for each line combination by game.
+
+Rows are line combinations unless `linemates` is false.
+
 ### Example
 
 * OAuth Authentication (OAuth2PasswordBearer):
@@ -52,7 +56,7 @@ with chickenstats_api.ApiClient(configuration) as api_client:
     strength_state = ['strength_state_example'] # List[str] |  (optional)
     score_state = True # bool |  (optional)
     level = 'level_example' # str |  (optional)
-    linemates = True # bool |  (optional)
+    linemates = True # bool | Split rows by the forwards, defense and goalie on the ice, so each row is one line combination. On by default; set false for one row per team and strength state, which /team_stats also covers. (optional) (default to True)
     opposition = True # bool |  (optional)
     include = ['include_example'] # List[str] |  (optional)
 
@@ -83,7 +87,7 @@ Name | Type | Description  | Notes
  **strength_state** | [**List[str]**](str.md)|  | [optional] 
  **score_state** | **bool**|  | [optional] 
  **level** | **str**|  | [optional] 
- **linemates** | **bool**|  | [optional] 
+ **linemates** | **bool**| Split rows by the forwards, defense and goalie on the ice, so each row is one line combination. On by default; set false for one row per team and strength state, which /team_stats also covers. | [optional] [default to True]
  **opposition** | **bool**|  | [optional] 
  **include** | [**List[str]**](str.md)|  | [optional] 
 
@@ -197,6 +201,11 @@ Name | Type | Description  | Notes
 
 Line stats by season
 
+Stats for each line combination by season.
+
+Rows are line combinations unless `linemates` is false, and line
+combinations need a team: a whole season of them sorts too many rows.
+
 ### Example
 
 * OAuth Authentication (OAuth2PasswordBearer):
@@ -233,7 +242,7 @@ with chickenstats_api.ApiClient(configuration) as api_client:
     opp_team = ['opp_team_example'] # List[str] |  (optional)
     strength_state = ['strength_state_example'] # List[str] |  (optional)
     score_state = True # bool |  (optional)
-    linemates = True # bool |  (optional)
+    linemates = True # bool | Split rows by the forwards, defense and goalie on the ice, so each row is one line combination. On by default; set false for one row per team and strength state, which /team_stats also covers. (optional) (default to True)
     opposition = True # bool |  (optional)
 
     try:
@@ -261,7 +270,7 @@ Name | Type | Description  | Notes
  **opp_team** | [**List[str]**](str.md)|  | [optional] 
  **strength_state** | [**List[str]**](str.md)|  | [optional] 
  **score_state** | **bool**|  | [optional] 
- **linemates** | **bool**|  | [optional] 
+ **linemates** | **bool**| Split rows by the forwards, defense and goalie on the ice, so each row is one line combination. On by default; set false for one row per team and strength state, which /team_stats also covers. | [optional] [default to True]
  **opposition** | **bool**|  | [optional] 
 
 ### Return type

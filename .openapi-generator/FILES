@@ -50,6 +50,7 @@ chickenstats_api/models/live_games_public.py
 chickenstats_api/models/live_pbp_public.py
 chickenstats_api/models/live_pbp_response.py
 chickenstats_api/models/message.py
+chickenstats_api/models/mfa_challenge.py
 chickenstats_api/models/new_password.py
 chickenstats_api/models/newsletter_preference.py
 chickenstats_api/models/newsletters.py
@@ -123,6 +124,7 @@ docs/LiveGamesPublic.md
 docs/LivePbpPublic.md
 docs/LivePbpResponse.md
 docs/Message.md
+docs/MfaChallenge.md
 docs/NewPassword.md
 docs/NewsletterPreference.md
 docs/Newsletters.md
@@ -211,6 +213,7 @@ test/test_live_games_public.py
 test/test_live_pbp_public.py
 test/test_live_pbp_response.py
 test/test_message.py
+test/test_mfa_challenge.py
 test/test_new_password.py
 test/test_newsletter_preference.py
 test/test_newsletters.py

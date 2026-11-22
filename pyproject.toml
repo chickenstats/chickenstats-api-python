@@ -1,6 +1,6 @@
 [project]
 name = "chickenstats_api"
-version = "0.2.1"
+version = "0.3.0"
 description = "chickenstats API"
 authors = [
   {name = "chickenstats",email = "chicken@chickenandstats.com"},
